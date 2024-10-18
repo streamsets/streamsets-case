@@ -1,0 +1,11 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: ibm-cpd-streamsets-operator-subscription
+spec:
+  channel: preview
+  installPlanApproval: Automatic
+  name: ibm-streamsets-operator
+  source: ibm-cpd-streamsets-operator-catalog
+  sourceNamespace: NAMESPACE
+  startingCSV: ibm-streamsets-operator.v5.1.0

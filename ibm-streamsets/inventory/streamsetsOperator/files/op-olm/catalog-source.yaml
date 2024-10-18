@@ -1,0 +1,16 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: ibm-cpd-streamsets-operator-catalog
+spec:
+  displayName: IBM Streamsets
+  image: cp.stg.icr.io/cp/ibm-streamsets-operator-catalog@sha256:dbe96507f349a465c8b8f97b4b9754c15f24438f77be6a2dfd69f1736b10041a
+  publisher: IBM Streamsets
+  grpcPodConfig:
+    securityContextConfig: legacy
+  sourceType: grpc
+  secrets:
+  - ibm-entitlement-key
+  updateStrategy:
+    registryPoll:
+      interval: 10m

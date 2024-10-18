@@ -1,0 +1,64 @@
+actions:
+  metadata:
+    name: streamsets
+    description: Streamsets Operator actions
+    displayName: Streamsets Operator Actions
+    displayDescription: Streamsets Operator Actions
+  actionDefs:
+    applyCustomResources:
+      metadata :
+        name: applyCustomResources
+        displayName: applyCustomResources
+        description: Install the Streamsets operand
+        displayDescription: Install the Streamsets Operand
+        case.launcher.type: "script"
+        case.launcher.isdefault: true
+        case.cli.alias: "apply-custom-resources"
+      roles:
+      - namespaceAdmin
+      requires:
+        metadata:
+          message:
+            onFailure: |
+              The applyCustomResources action must be run on OpenShift Container Platform. The minimum
+              level of Kubernetes on each platform are described in the CASE prerequisites.
+              The Streamsets CustomResourceDefintion described in the CASE prerequisites must
+              also exist on the cluster. The client must have kubectl and oc installed to execute the launcher script.
+        and:
+        - "/case/prereqs/k8sDistros/kubernetes"
+        - or:
+          - "/case/prereqs/client/oc"
+          - "/case/prereqs/client/kubectl"
+          - and:
+            - "/case/prereqs/k8sDistros/openshift"
+            - "/case/prereqs/k8sResources/restrictedSCC"
+      k8sPermissions:
+        rules:
+        - rule:
+            group: software.streamsets.ibm.com
+            resource: '*'
+            verbs:
+            - get
+            - list
+            - watch
+            - create
+            - patch
+            - update
+
+    deleteCustomResources:
+      metadata :
+        name: deleteCustomResources
+        displayName: deleteCustomResources
+        description: Uninstall the Streamsets operand
+        displayDescription: Uninstall the streamsetsoperand
+        case.launcher.type: "script"
+        case.cli.alias: "delete-custom-resources"
+      roles:
+      - namespaceAdmin
+      k8sPermissions:
+        rules:
+        - rule:
+            group: software.streamsets.ibm.com
+            resource: '*'
+            verbs:
+            - '*'

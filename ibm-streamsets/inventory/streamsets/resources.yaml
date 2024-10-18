@@ -1,0 +1,153 @@
+resources:
+  metadata:
+    name: streamsets
+  resourceDefs:
+    containerImages:
+    - image: cp/cpd/ibm-streamsets-sch
+      mediaType: application/vnd.docker.distribution.manifest.v2
+      tag: 71467d70bc6e435e7e571a876e9c62de9a19340e-amd64
+      digest: sha256:8cdbef0bc2670a835cc7c398f0fe56618aa2f4fab50b64350a9920baf6116fd8
+      platform:
+        architecture: amd64
+        os: linux
+      registries:
+      - host: cp.icr.io
+    - image: cp/cpd/ibm-streamsets-sch-docs
+      mediaType: application/vnd.docker.distribution.manifest.v2
+      tag: 71467d70bc6e435e7e571a876e9c62de9a19340e-amd64
+      digest: sha256:9b6a9c8e64cd9e66567ff8269002a587cca6c73146c0dd1d6583bb6b3b2268d3
+      platform:
+        architecture: amd64
+        os: linux
+      registries:
+      - host: cp.icr.io
+    - image: cp/cpd/ibm-streamsets-aster-metering
+      mediaType: application/vnd.docker.distribution.manifest.v2
+      tag: ae49204a99823de757a377d23efb541946514605-amd64
+      digest: sha256:ff882f94620a9ff6b277a4f1a415b990cad8b8f2c90b9036c02f6b068d26da0f
+      platform:
+        architecture: amd64
+        os: linux
+      registries:
+      - host: cp.icr.io
+    - image: cp/cpd/ibm-streamsets-provisioning-app
+      mediaType: application/vnd.docker.distribution.manifest.v2
+      tag: PR-198-1fb74b05db879ca3ea2d317260ef80db26db7d20-amd64
+      digest: sha256:a6f0960df6245dc0bc835c20b1f37cca1380be397abb4d192d39d0e444ff71e0
+      platform:
+        architecture: amd64
+        os: linux
+      registries:
+      - host: cp.icr.io
+    - image: cp/cpd/ibm-streamsets-banner-service
+      mediaType: application/vnd.docker.distribution.manifest.v2
+      tag: a97c7d5ad85cec718cc5e6179d871cc609892892-amd64
+      digest: sha256:40a70e8cd67255f476ab72b3414b5f38a6292aa10bd9efe0ce0282b45184d4dd
+      platform:
+        architecture: amd64
+        os: linux
+      registries:
+      - host: cp.icr.io
+    - image: cp/cpd/ibm-streamsets-aster-security-ui
+      mediaType: application/vnd.docker.distribution.manifest.v2
+      tag: software-latest-amd64
+      digest: sha256:2b254c2629d6a81b49f42b260fc9900c452fcf3d0826f346095ab451bcdcebc1
+      platform:
+        architecture: amd64
+        os: linux
+      registries:
+      - host: cp.icr.io
+    - image: cp/cpd/ibm-streamsets-aster-security
+      mediaType: application/vnd.docker.distribution.manifest.v2
+      tag: software-latest-amd64
+      digest: sha256:7421f50faf3b651b09b0b9e4db91a0ca425ce2e2faf8f0486303e159d9c8f2f9
+      platform:
+        architecture: amd64
+        os: linux
+      registries:
+      - host: cp.icr.io
+    - image: cpopen/ibm-streamsets-mysql
+      mediaType: application/vnd.docker.distribution.manifest.v2
+      tag: 8.0.36-amd64
+      digest: sha256:5fe7110740ef0f32c26b60d5aab99c7f6376254babdd6f2c8aaf6fb38b7e009e
+      platform:
+        architecture: amd64
+        os: linux
+      registries:
+      - host: icr.io
+    - image: cpopen/ibm-streamsets-istio-cni
+      mediaType: application/vnd.docker.distribution.manifest.v2
+      tag: 1.23.2-amd64
+      digest: sha256:73605756ba0684d16b3384633fe86945cc876dd1b2a7b5b222e491aa8b277c7f
+      platform:
+        architecture: amd64
+        os: linux
+      registries:
+      - host: icr.io
+    - image: cpopen/ibm-streamsets-istio-pilot
+      mediaType: application/vnd.docker.distribution.manifest.v2
+      tag: 1.23.2-amd64
+      digest: sha256:2ed540aed78a7014005d1c46a50acbf239956f21e419aa8487f921470bceb67c
+      platform:
+        architecture: amd64
+        os: linux
+      registries:
+      - host: icr.io
+    - image: cpopen/ibm-streamsets-istio-proxyv2
+      mediaType: application/vnd.docker.distribution.manifest.v2
+      tag: 1.23.2-amd64
+      digest: sha256:2876cfc2fdf47e4b9665390ccc9ccf2bf913b71379325b8438135c9f35578e1a
+      platform:
+        architecture: amd64
+        os: linux
+      registries:
+      - host: icr.io
+    files:
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_sch-istio.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_aster-security-ui.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_aster-security.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_banner.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_connection.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_docs.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_jobrunner.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_messaging.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_misc-resources.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_mysql.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_notification.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_pipelinestore.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_provisioning.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_scheduler.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_security.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_sequencing.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_sla.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_timeseries.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_topology.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_tunneling.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/samples/software_v1alpha1_metering.yaml
+    - mediaType: application/vnd.case.resource.script.bash.v1+launcher
+      ref: launch.sh
+    - mediaType: application/vnd.case.resource.script.bash.v1
+      ref: airgap.sh
+    - mediaType: application/vnd.case.resource.script.bash.v1
+      ref: launch-impl.sh

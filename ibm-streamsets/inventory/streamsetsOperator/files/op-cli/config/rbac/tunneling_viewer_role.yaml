@@ -1,0 +1,23 @@
+# permissions for end users to view tunnelings.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: ibm-streamsets-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: tunneling-viewer-role
+rules:
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - tunnelings
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - tunnelings/status
+  verbs:
+  - get

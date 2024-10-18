@@ -1,0 +1,23 @@
+name: ibm-streamsets
+specVersion: 1.0.0
+version: 1.0.0
+appVersion: 1.0.0
+description: "IBM Cloud Pak for Streamsets"
+displayName: "IBM Cloud Pak for Streamsets"
+displayDescription: "IBM Cloud Pak for Streamsets"
+icons: []
+organization: IBM
+webPage: https://www.ibm.com
+supports:
+  architectures:
+    amd64: {}
+  k8sDistros:
+    rhocp4: {}
+  managedPlatforms:
+    redhat: {}
+catalogs:
+  analytics: {}
+classifications:
+  commercial: {}
+certifications:
+  ibmccscp: {}

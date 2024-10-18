@@ -1,0 +1,64 @@
+
+prereqs:
+  prereqDefs:
+    k8sDistros:
+      kubernetes:
+        distribution: kubernetes
+        semver: '>=1.18.0-0'
+      openshift:
+        distribution: openshift
+        semver: '>=1.19.0-0'
+    client:
+      kubectl:
+        metadata:
+          description: "Client has kubectl version 1.15.0 or greater"
+        command: "kubectl"
+        versionArgs: "--version"
+        versionRegex: "GitVersion:\"v1.(1[5-9]|[2][0-9]|3[0-1]).[0-9]"
+      oc:
+        metadata:
+          description: "Client has oc version 4.5.0 or greater"
+        command: "oc"
+        versionArgs: "version --client"
+        versionRegex: "4.[5-9]*.[0-9]*"
+      istioctl:
+        metadata:
+          description: "Client has istioctl version 1.19.0 or greater"
+        command: "istioctl"
+        versionArgs: "version"
+        versionRegex: "1.(19|[2-9][0-9]).[0-9]"
+      docker:
+        metadata:
+          description: "Client has docker version 18.0.0 or greater"
+        command: "docker"
+        versionArgs: "--version"
+        versionRegex: "Docker version (1[8-9]|2[0-9])\\.[0-9]*\\.[0-9]*"
+      skopeo:
+        metadata:
+          description: "Client has skopeo version 1.0.0 or greater"
+        command: "skopeo"
+        versionArgs: "--version"
+        versionRegex: "skopeo version 1.[0-9]*.[0-9]*"
+      podman:
+        metadata:
+          description: "Client has podman installed"
+        command: "podman"
+      openssl:
+        metadata:
+          description: "openssl"
+        command: "which"
+        versionArgs: "openssl"
+      htpasswd:
+        metadata:
+          description: "htpasswd"
+        command: "which"
+        versionArgs: "htpasswd"
+    k8sResources:
+      restrictedSCC:
+        metadata:
+          description: "Namespace is using the restricted SecurityContextConstraint"
+        kind: SecurityContextConstraints
+        apiGroup: security.openshift.io
+        name: restricted
+        version: v1
+    ibmCoreServices: {}

@@ -1,0 +1,1183 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: manager-role
+rules:
+##
+## Base operator rules
+##
+# We need to get namespaces so the operator can read namespaces to ensure they exist
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  verbs:
+  - get
+# We need to manage Helm release secrets
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - "*"
+# We need to create events on CRs about things happening during reconciliation
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Aster-security-ui
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - aster-security-uis
+  - aster-security-uis/status
+  - aster-security-uis/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - ""
+  resources:
+  - "configmaps"
+  - "services"
+- verbs:
+  - "*"
+  apiGroups:
+  - "apps"
+  resources:
+  - "deployments"
+- verbs:
+  - "*"
+  apiGroups:
+  - "autoscaling"
+  resources:
+  - "horizontalpodautoscalers"
+- verbs:
+  - "*"
+  apiGroups:
+  - "networking.istio.io"
+  resources:
+  - "destinationrules"
+  - "virtualservices"
+- verbs:
+  - "*"
+  apiGroups:
+  - "policy"
+  resources:
+  - "poddisruptionbudgets"
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Aster-security
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - aster-securities
+  - aster-securities/status
+  - aster-securities/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - "policy"
+  resources:
+  - "poddisruptionbudgets"
+- verbs:
+  - "*"
+  apiGroups:
+  - ""
+  resources:
+  - "services"
+- verbs:
+  - "*"
+  apiGroups:
+  - "apps"
+  resources:
+  - "deployments"
+- verbs:
+  - "*"
+  apiGroups:
+  - "autoscaling"
+  resources:
+  - "horizontalpodautoscalers"
+- verbs:
+  - "*"
+  apiGroups:
+  - "networking.istio.io"
+  resources:
+  - "destinationrules"
+  - "virtualservices"
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Banner
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - banners
+  - banners/status
+  - banners/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - "policy"
+  resources:
+  - "poddisruptionbudgets"
+- verbs:
+  - "*"
+  apiGroups:
+  - ""
+  resources:
+  - "services"
+- verbs:
+  - "*"
+  apiGroups:
+  - "apps"
+  resources:
+  - "deployments"
+- verbs:
+  - "*"
+  apiGroups:
+  - "autoscaling"
+  resources:
+  - "horizontalpodautoscalers"
+- verbs:
+  - "*"
+  apiGroups:
+  - "networking.istio.io"
+  resources:
+  - "destinationrules"
+  - "virtualservices"
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Base-istio
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - base-istios
+  - base-istios/status
+  - base-istios/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - "rbac.authorization.k8s.io"
+  resources:
+  - "clusterrolebindings"
+  - "clusterroles"
+- verbs:
+  - "*"
+  apiGroups:
+  - "k8s.cni.cncf.io"
+  resources:
+  - "network-attachment-definitions"
+- verbs:
+  - "*"
+  apiGroups:
+  - ""
+  resources:
+  - "configmaps"
+  - "serviceaccounts"
+- verbs:
+  - "*"
+  apiGroups:
+  - "apps"
+  resources:
+  - "daemonsets"
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Connection
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - connections
+  - connections/status
+  - connections/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - "autoscaling"
+  resources:
+  - "horizontalpodautoscalers"
+- verbs:
+  - "*"
+  apiGroups:
+  - "networking.istio.io"
+  resources:
+  - "destinationrules"
+  - "virtualservices"
+- verbs:
+  - "*"
+  apiGroups:
+  - "policy"
+  resources:
+  - "poddisruptionbudgets"
+- verbs:
+  - "*"
+  apiGroups:
+  - ""
+  resources:
+  - "services"
+- verbs:
+  - "*"
+  apiGroups:
+  - "apps"
+  resources:
+  - "deployments"
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Docs
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - docs
+  - docs/status
+  - docs/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - "networking.istio.io"
+  resources:
+  - "destinationrules"
+  - "virtualservices"
+- verbs:
+  - "*"
+  apiGroups:
+  - "policy"
+  resources:
+  - "poddisruptionbudgets"
+- verbs:
+  - "*"
+  apiGroups:
+  - ""
+  resources:
+  - "services"
+- verbs:
+  - "*"
+  apiGroups:
+  - "apps"
+  resources:
+  - "deployments"
+- verbs:
+  - "*"
+  apiGroups:
+  - "autoscaling"
+  resources:
+  - "horizontalpodautoscalers"
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Jobrunner
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - jobrunners
+  - jobrunners/status
+  - jobrunners/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - "policy"
+  resources:
+  - "poddisruptionbudgets"
+- verbs:
+  - "*"
+  apiGroups:
+  - ""
+  resources:
+  - "services"
+- verbs:
+  - "*"
+  apiGroups:
+  - "apps"
+  resources:
+  - "deployments"
+- verbs:
+  - "*"
+  apiGroups:
+  - "autoscaling"
+  resources:
+  - "horizontalpodautoscalers"
+- verbs:
+  - "*"
+  apiGroups:
+  - "networking.istio.io"
+  resources:
+  - "destinationrules"
+  - "virtualservices"
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Messaging
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - messagings
+  - messagings/status
+  - messagings/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - "policy"
+  resources:
+  - "poddisruptionbudgets"
+- verbs:
+  - "*"
+  apiGroups:
+  - ""
+  resources:
+  - "services"
+- verbs:
+  - "*"
+  apiGroups:
+  - "apps"
+  resources:
+  - "deployments"
+- verbs:
+  - "*"
+  apiGroups:
+  - "autoscaling"
+  resources:
+  - "horizontalpodautoscalers"
+- verbs:
+  - "*"
+  apiGroups:
+  - "networking.istio.io"
+  resources:
+  - "destinationrules"
+  - "virtualservices"
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Metering
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - meterings
+  - meterings/status
+  - meterings/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - "apps"
+  resources:
+  - "deployments"
+- verbs:
+  - "*"
+  apiGroups:
+  - "autoscaling"
+  resources:
+  - "horizontalpodautoscalers"
+- verbs:
+  - "*"
+  apiGroups:
+  - "networking.istio.io"
+  resources:
+  - "destinationrules"
+  - "virtualservices"
+- verbs:
+  - "*"
+  apiGroups:
+  - "policy"
+  resources:
+  - "poddisruptionbudgets"
+- verbs:
+  - "*"
+  apiGroups:
+  - ""
+  resources:
+  - "services"
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Misc-resources
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - misc-resources
+  - misc-resources/status
+  - misc-resources/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Mysql
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - mysqls
+  - mysqls/status
+  - mysqls/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - "networking.k8s.io"
+  resources:
+  - "networkpolicies"
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Notification
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - notifications
+  - notifications/status
+  - notifications/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - "policy"
+  resources:
+  - "poddisruptionbudgets"
+- verbs:
+  - "*"
+  apiGroups:
+  - ""
+  resources:
+  - "services"
+- verbs:
+  - "*"
+  apiGroups:
+  - "apps"
+  resources:
+  - "deployments"
+- verbs:
+  - "*"
+  apiGroups:
+  - "autoscaling"
+  resources:
+  - "horizontalpodautoscalers"
+- verbs:
+  - "*"
+  apiGroups:
+  - "networking.istio.io"
+  resources:
+  - "destinationrules"
+  - "virtualservices"
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Pipelinestore
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - pipelinestores
+  - pipelinestores/status
+  - pipelinestores/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - ""
+  resources:
+  - "services"
+- verbs:
+  - "*"
+  apiGroups:
+  - "apps"
+  resources:
+  - "deployments"
+- verbs:
+  - "*"
+  apiGroups:
+  - "autoscaling"
+  resources:
+  - "horizontalpodautoscalers"
+- verbs:
+  - "*"
+  apiGroups:
+  - "networking.istio.io"
+  resources:
+  - "destinationrules"
+  - "virtualservices"
+- verbs:
+  - "*"
+  apiGroups:
+  - "policy"
+  resources:
+  - "poddisruptionbudgets"
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Provisioning
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - provisionings
+  - provisionings/status
+  - provisionings/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - services
+  - services/finalizers
+  - endpoints
+  - persistentvolumeclaims
+  - events
+  - configmaps
+  - secrets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - daemonsets
+  - replicasets
+  - statefulsets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Sch-istio
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - sch-istios
+  - sch-istios/status
+  - sch-istios/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - services
+  - services/finalizers
+  - endpoints
+  - persistentvolumeclaims
+  - events
+  - configmaps
+  - secrets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - daemonsets
+  - replicasets
+  - statefulsets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Scheduler
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - schedulers
+  - schedulers/status
+  - schedulers/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - "apps"
+  resources:
+  - "deployments"
+- verbs:
+  - "*"
+  apiGroups:
+  - "autoscaling"
+  resources:
+  - "horizontalpodautoscalers"
+- verbs:
+  - "*"
+  apiGroups:
+  - "networking.istio.io"
+  resources:
+  - "destinationrules"
+  - "virtualservices"
+- verbs:
+  - "*"
+  apiGroups:
+  - "policy"
+  resources:
+  - "poddisruptionbudgets"
+- verbs:
+  - "*"
+  apiGroups:
+  - ""
+  resources:
+  - "services"
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Security
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - securities
+  - securities/status
+  - securities/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - services
+  - services/finalizers
+  - endpoints
+  - persistentvolumeclaims
+  - events
+  - configmaps
+  - secrets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - daemonsets
+  - replicasets
+  - statefulsets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Sequencing
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - sequencings
+  - sequencings/status
+  - sequencings/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - ""
+  resources:
+  - "services"
+- verbs:
+  - "*"
+  apiGroups:
+  - "apps"
+  resources:
+  - "deployments"
+- verbs:
+  - "*"
+  apiGroups:
+  - "autoscaling"
+  resources:
+  - "horizontalpodautoscalers"
+- verbs:
+  - "*"
+  apiGroups:
+  - "networking.istio.io"
+  resources:
+  - "destinationrules"
+  - "virtualservices"
+- verbs:
+  - "*"
+  apiGroups:
+  - "policy"
+  resources:
+  - "poddisruptionbudgets"
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Sla
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - slas
+  - slas/status
+  - slas/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - "autoscaling"
+  resources:
+  - "horizontalpodautoscalers"
+- verbs:
+  - "*"
+  apiGroups:
+  - "networking.istio.io"
+  resources:
+  - "destinationrules"
+  - "virtualservices"
+- verbs:
+  - "*"
+  apiGroups:
+  - "policy"
+  resources:
+  - "poddisruptionbudgets"
+- verbs:
+  - "*"
+  apiGroups:
+  - ""
+  resources:
+  - "services"
+- verbs:
+  - "*"
+  apiGroups:
+  - "apps"
+  resources:
+  - "deployments"
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Timeseries
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - timeseries
+  - timeseries/status
+  - timeseries/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - ""
+  resources:
+  - "services"
+- verbs:
+  - "*"
+  apiGroups:
+  - "apps"
+  resources:
+  - "deployments"
+- verbs:
+  - "*"
+  apiGroups:
+  - "autoscaling"
+  resources:
+  - "horizontalpodautoscalers"
+- verbs:
+  - "*"
+  apiGroups:
+  - "networking.istio.io"
+  resources:
+  - "destinationrules"
+  - "virtualservices"
+- verbs:
+  - "*"
+  apiGroups:
+  - "policy"
+  resources:
+  - "poddisruptionbudgets"
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Topology
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - topologies
+  - topologies/status
+  - topologies/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - ""
+  resources:
+  - "services"
+- verbs:
+  - "*"
+  apiGroups:
+  - "apps"
+  resources:
+  - "deployments"
+- verbs:
+  - "*"
+  apiGroups:
+  - "autoscaling"
+  resources:
+  - "horizontalpodautoscalers"
+- verbs:
+  - "*"
+  apiGroups:
+  - "networking.istio.io"
+  resources:
+  - "destinationrules"
+  - "virtualservices"
+- verbs:
+  - "*"
+  apiGroups:
+  - "policy"
+  resources:
+  - "poddisruptionbudgets"
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+##
+## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Tunneling
+##
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - tunnelings
+  - tunnelings/status
+  - tunnelings/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - "autoscaling"
+  resources:
+  - "horizontalpodautoscalers"
+- verbs:
+  - "*"
+  apiGroups:
+  - "networking.istio.io"
+  resources:
+  - "destinationrules"
+  - "virtualservices"
+- verbs:
+  - "*"
+  apiGroups:
+  - "policy"
+  resources:
+  - "poddisruptionbudgets"
+- verbs:
+  - "*"
+  apiGroups:
+  - ""
+  resources:
+  - "services"
+- verbs:
+  - "*"
+  apiGroups:
+  - "apps"
+  resources:
+  - "deployments"
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+#+kubebuilder:scaffold:rules

@@ -1,0 +1,154 @@
+apiVersion: software.streamsets.ibm.com/v1alpha1
+kind: Metering
+metadata:
+  name: metering-sample
+spec:
+  # Default values copied from <project_dir>/helm-charts/metering/values.yaml
+  aster-metering-deploy:
+    appName: metering
+    application:
+      args: /apps/bin/streamsets metering run
+      containerRegistry: cp.stg.icr.io/cp/cpd/ibm-streamsets-
+      dbUpgradeArgs: /apps/bin/streamsets metering prod-update-schema --confirm prod-update-schema
+        && /apps/bin/streamsets metering seed-data --confirm seed-data
+      dpmcliVersion: software-da90442114a1a46b25751d498687b0969cf5dd45
+      imageName: aster-metering
+      imageSuffix: -amd64
+      imageTag: 017203df67bcd36123fbc0c6bfc2def92e436dc5
+      port: 9000
+    cloudProvider: default
+    cloudSqlProxy:
+      enabled: false
+    clusterDomain: svc.cluster.local
+    dbHost: ibm-streamsets-self-managed-mysql-mysql-deploy-headless
+    env:
+      APP_CONF: /streamsets/etc
+      APP_JAVA_OPTS: -Dlog4j2.formatMsgNoLookups=true -Djava.util.logging.config.file=/streamsets/etc/logging.properties
+        -Ddd.service={{ .Values.appName }} -Ddd.logs.injection=true -Ddd.env={{ .Release.Namespace
+        }} -XX:+UseStringDeduplication -XX:MaxDirectMemorySize=10M -XX:MaxMetaspaceSize=204800K
+        -XX:ReservedCodeCacheSize=240M -Xss1M -Xmx1024M -XX:+CrashOnOutOfMemoryError
+        -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/diagnostics -XX:ErrorFile=/diagnostics/app.err
+      APP_LOG: /var/log/app.log
+      DD_ENV: '{{ .Release.Namespace }}'
+      DD_SERVICE: '{{ .Values.appName }}'
+      DD_VERSION: '{{ .Values.application.imageTag }}'
+      SPRING_PROFILES_ACTIVE: schSecurity,housekeeper
+    environment: default
+    global:
+      host: https://cpd-zen.apps.rosa.rosa.sl9v.p3.openshiftapps.com
+    healthCheck:
+      path: /metering/public/v1/health
+      port: 9000
+    heapShipper:
+      enabled: false
+      image: 482402078688.dkr.ecr.us-east-2.amazonaws.com/heap-shipper-aws:1.0.0
+      uploadCommand: aws s3 cp $file s3://${HEAP_DUMP_BUCKET}/${POD_NAMESPACE}/${POD_NAME}/$filename
+    hpa:
+      maxReplicas: 4
+      minReplicas: 2
+    istio:
+      enabled: true
+    nameSpaceServiceAccount: streamsets
+    properties:
+      app.baseUrl: '{{ .Values.global.host }}/streamsets/main/metering'
+      app.instance.resolver.check-period-ms: "240000"
+      app.ipauth.ipAuthConfigMap.enforcement.cache.lru_size: "100000"
+      app.ipauth.ipAuthConfigMap.enforcement.cache.ttl_error_sec: "30"
+      app.ipauth.ipAuthConfigMap.enforcement.cache.ttl_sec: "150"
+      app.ipauth.ipAuthConfigMap.enforcement.cluster_type: default
+      app.ipauth.ipAuthConfigMap.enforcement.disabled.prefixes: /*/api-docs,/swagger-ui,/swagger-ui.html,/webjars/springfox-swagger-ui,/swagger-resources,/*/public,/error
+      app.ipauth.ipAuthConfigMap.enforcement.error_log_interval_sec: "0"
+      app.ipauth.ipAuthConfigMap.enforcement.file.filename: /apps/apps/metering/etc/ip-auth.json
+      app.ipauth.ipAuthConfigMap.enforcement.internal_only.prefixes: /nothing
+      app.ipauth.ipAuthConfigMap.enforcement.mode: disabled
+      app.ipauth.ipAuthConfigMap.enforcement.resource_pool.size: "50"
+      app.ipauth.ipAuthConfigMap.enforcement.resource_pool.timeout_sec: "30"
+      app.ipauth.ipAuthConfigMap.enforcement.rest_client.base_url: http://security.{{
+        .Release.Namespace }}.{{ .Values.clusterDomain }}:18631/security/rest/v1/ipAuthorizer
+      app.ipauth.ipAuthConfigMap.enforcement.rest_client.timeout_initial_sec: "45"
+      app.ipauth.ipAuthConfigMap.enforcement.rest_client.timeout_update_sec: "5"
+      coffee-boots.cache.spec.schOrgInfo: maximumSize=5000,expireAfterWrite=60s
+      coffee-boots.cache.spec.schUserInfo: maximumSize=10000,expireAfterWrite=60s
+      dpm.app.security.url: http://security.{{ .Release.Namespace }}.{{ .Values.clusterDomain
+        }}:18631
+      dpm.appAuthToken: ${token}
+      dpm.base.url: '{{ .Values.global.host }}/streamsets/main'
+      dpm.componentId: ${componentId}
+      dpm.components.fetch.batch.size: "500"
+      dpm.components.fetch.initial.delay.secs: "60"
+      dpm.components.fetch.interval.secs: "60"
+      dpm.connectionTimeout.millis: "60000"
+      dpm.domainForRequestedUrlCookie: hub.streamsets.com
+      dpm.security.validationTokenFrequency.secs: "60"
+      dpm.useQueryStringForRequestedUrl: "false"
+      metering.dpm.tasks.offload.bucketName: '{{ .Release.Namespace }}-metering-estimate-analytics'
+      metering.event.controller.event.ingest.enabled: "false"
+      metering.hourlyAggregation.minEventAge.hour: "12"
+      metering.jae.task.cron: 0 10 * * * *
+      metering.jae.task.offload.bucketName: '{{ .Release.Namespace }}-metering-jae-exports'
+      metering.tasks.analytics.cron: 0 10 * * * *
+      metering.tasks.dailycleanup.batchSize: "1000"
+      metering.tasks.dailycleanup.bucketName: '{{ .Release.Namespace }}-metering-event-long-term-storage'
+      metering.tasks.dailycleanup.cron: '-'
+      metering.tasks.dailycleanup.minEventAgeDays: "3"
+      metering.tasks.offload.bucketName: '{{ .Release.Namespace }}-metering-event-analytics'
+      metering.v2.tasks.analytics.cron: 0 10 * * * *
+      metering.v2.tasks.offload.bucketName: '{{ .Release.Namespace }}-metering-v2-exports'
+      rest.errors.includeExceptionDetails: "false"
+      retry.maxAttempts: "3"
+      retry.maxDelayMs: "1000"
+      scheduling.awaitTermination.secs: "10"
+      scheduling.threadPool.size: "5"
+      server.port: "9000"
+      server.servlet.context-path: /metering
+      spring.autoconfigure.exclude: org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration
+      spring.config.import: configtree:/streamsets/etc/secrets/
+      spring.datasource.driverClassName: org.mariadb.jdbc.Driver
+      spring.datasource.password: ${app.db.pass}
+      spring.datasource.url: jdbc:mysql://{{ .Values.dbHost }}.{{ .Release.Namespace
+        }}.{{ .Values.clusterDomain }}:3306/{{ .Release.Namespace }}metering?permitMysqlScheme=true&sslMode=trust
+      spring.datasource.username: ${app.db.user}
+      spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+      spring.jpa.properties.hibernate.hbm2ddl.auto: none
+      spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults: "false"
+      spring.liquibase.change-log: classpath:/db/changelog/db-changelog-master.xml
+      spring.liquibase.enabled: "false"
+      streamsets.metrics.datadog.apiKey: ${api.key}
+      streamsets.metrics.datadog.enabled: "true"
+      streamsets.metrics.datadog.step: "60"
+      streamsets.metrics.tags.env: '{{ .Release.Namespace }}'
+      streamsets.metrics.tags.service: '{{ .Values.appName }}'
+      streamsets.metrics.tags.version: '{{ .Values.application.imageTag }}'
+    resources:
+      limits:
+        cpu: "2"
+        memory: 3Gi
+      requests:
+        cpu: "2"
+        memory: 3Gi
+    secrets:
+    - bootstrap: true
+      name: metering-secret
+      secrets:
+        app.db.pass: app.db.pass
+        app.db.user: app.db.user
+        componentId: componentId
+        token: token
+    - name: datadog-agent
+      secrets:
+        datadog.api.key: datadog.api.key
+    - name: dpm-admin
+      secrets:
+        dpm.admin.password: dpm.admin.password
+        dpm.admin.user: dpm.admin.user
+    - name: db-service-account
+      secrets:
+        db.service.pass: db.service.pass
+        db.service.user: db.service.user
+    virtualService:
+      gateway: '{{ .Release.Namespace }}-sch-gateway'
+      prefixes:
+      - /streamsets/main/metering
+      rewrite: /metering
+  
+  

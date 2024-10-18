@@ -1,0 +1,23 @@
+# permissions for end users to view aster-securities.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: ibm-streamsets-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: aster-security-viewer-role
+rules:
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - aster-securities
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - aster-securities/status
+  verbs:
+  - get

@@ -1,0 +1,285 @@
+apiVersion: software.streamsets.ibm.com/v1alpha1
+kind: Security
+metadata:
+  name: security-sample
+spec:
+  # Default values copied from <project_dir>/helm-charts/security/values.yaml
+  domainserver-deploy_security:
+    appName: security
+    application:
+      args: ${DPM_DIST}/bin/streamsets dpm
+      containerRegistry: cp.stg.icr.io/cp/cpd/ibm-streamsets-
+      dbUpgradeArgs: ${DPM_DIST}/bin/streamsets dpmcli {{ .Values.appName }} buildSchema
+        -a --debug
+      dpmcliVersion: software-da90442114a1a46b25751d498687b0969cf5dd45
+      imageName: sch
+      imageSuffix: -amd64
+      imageTag: software-da90442114a1a46b25751d498687b0969cf5dd45
+      port: 18631
+    cloudProvider: default
+    cloudSqlProxy:
+      enabled: false
+    clusterDomain: svc.cluster.local
+    dbHost: ibm-streamsets-self-managed-mysql-mysql-deploy-headless
+    env:
+      APP_CONF: /streamsets/etc
+      APP_LOG: /var/log/app.log
+      APPS_TO_START: '{{ .Values.appName }}'
+      DD_ENV: '{{ .Release.Namespace }}'
+      DD_SERVICE: '{{ .Values.appName }}'
+      DD_VERSION: '{{ .Values.application.imageTag }}'
+      DPM_JAVA_OPTS: -Dlog4j2.configurationFile=file:/streamsets/etc/application.properties
+        -Dlog4j2.formatMsgNoLookups=true -Ddd.logs.injection=true -XX:+PrintFlagsFinal
+        -XX:MaxRAMPercentage=70 -XX:+UseStringDeduplication -XX:MaxDirectMemorySize=256M
+        -XX:ReservedCodeCacheSize=240M -Xss1M -XX:+CrashOnOutOfMemoryError -XX:+HeapDumpOnOutOfMemoryError
+        -XX:HeapDumpPath=/diagnostics -XX:ErrorFile=/diagnostics/app.err
+      SCH_ASTER_URL: dev41.login.streamsets.com
+      SCH_CONFIG_PATH: /streamsets/etc/application.properties
+    global:
+      host: https://cpd-zen.apps.rosa.rosa.sl9v.p3.openshiftapps.com
+    healthCheck:
+      path: /public-rest/v1/health
+      port: 18631
+    heapShipper:
+      enabled: false
+    hpa:
+      maxReplicas: 4
+      minReplicas: 2
+    istio:
+      enabled: true
+    nameSpaceServiceAccount: streamsets
+    properties:
+      admin.fetchComponentsFrequency.secs: "60"
+      admin.http.bindHost: 0.0.0.0
+      admin.http.port: "18632"
+      admin.http.realm.file.permission.check: "false"
+      admin.https.keystore.path: keystore.jks
+      admin.https.port: "-1"
+      alts.jpaFetcher.beanQueryTemplate.Organization: SELECT bean.id, bean.name FROM
+        Organization bean WHERE bean.id :org AND bean.id IN :ids
+      alts.jpaFetcher.beanQueryTemplate.User: SELECT bean.id, bean.email FROM User bean
+        WHERE bean.organization.id :org AND bean.id IN :ids
+      appender.console.layout.eventTemplateUri: file:/opt/streamsets-dpm-4.0.0-SNAPSHOT/etc/GcpLoggingLayout.json
+      appender.console.layout.type: JsonTemplateLayout
+      appender.console.name: STDOUT
+      appender.console.type: Console
+      appender.null.fileName: /dev/null
+      appender.null.layout.pattern: '-'
+      appender.null.layout.type: PatternLayout
+      appender.null.name: "NULL"
+      appender.null.type: File
+      appenders: null, console
+      apps.available: security,pipelinestore,messaging,jobrunner,timeseries,topology,notification,sla,provisioning,scheduler,connection,tunneling,metering,sequencing
+      apps.to.start: '{{ .Values.appName }}'
+      authenticationToken.tokenTimeToLive.secs: "86400"
+      authenticationToken.transient: "true"
+      db.dbcp.extra: validationQuery=SELECT 1
+      db.dbcp.max.idle: "25"
+      db.dbcp.max.open: "100"
+      db.dbcp.max.wait: "10000"
+      db.dbcp.min.idle: "25"
+      db.dbcp.test.on.borrow: "true"
+      db.openjpa.ConnectionDriverName: org.mariadb.jdbc.Driver
+      db.openjpa.ConnectionPassword: ${file("/streamsets/etc/secrets/app.db.pass")}
+      db.openjpa.ConnectionURL: jdbc:mysql://{{ .Values.dbHost }}.{{ .Release.Namespace
+        }}.{{ .Values.clusterDomain }}:3306/{{ .Release.Namespace }}{{ .Values.appName
+        }}?permitMysqlScheme=true&allowPublicKeyRetrieval=true&sslMode=trust
+      db.openjpa.ConnectionUserName: ${file("/streamsets/etc/secrets/app.db.user")}
+      db.openjpa.javax.persistence.query.timeout: "60000"
+      db.slow.query.interval.millis: "10000"
+      db.transactionRetry.maximumWait.millis: "200"
+      db.transactionRetry.minimumWait.millis: "100"
+      db.transactionRetry.retries: "7"
+      disconnectedCredentials.refreshFreq.secs: "60"
+      dpm.acl.permission.batch.size: "10000"
+      dpm.api.default.len.value: "100"
+      dpm.api.max.len.value: "1000"
+      dpm.api.pagination.parameters.check.enabled: "false"
+      dpm.app.connection.url: http://connection.{{ .Release.Namespace }}.{{ .Values.clusterDomain
+        }}:18631
+      dpm.app.jobrunner.url: http://jobrunner.{{ .Release.Namespace }}.{{ .Values.clusterDomain
+        }}:18631
+      dpm.app.messaging.url: http://messaging.{{ .Release.Namespace }}.{{ .Values.clusterDomain
+        }}:18631
+      dpm.app.notification.url: http://notification.{{ .Release.Namespace }}.{{ .Values.clusterDomain
+        }}:18631
+      dpm.app.pipelinestore.url: http://pipelinestore.{{ .Release.Namespace }}.{{ .Values.clusterDomain
+        }}:18631
+      dpm.app.provisioning.url: http://provisioning.{{ .Release.Namespace }}.{{ .Values.clusterDomain
+        }}:18631
+      dpm.app.scheduler.url: http://scheduler.{{ .Release.Namespace }}.{{ .Values.clusterDomain
+        }}:18631
+      dpm.app.security.url: http://security.{{ .Release.Namespace }}.{{ .Values.clusterDomain
+        }}:18631
+      dpm.app.sequencing.url: http://sequencing.{{ .Release.Namespace }}.{{ .Values.clusterDomain
+        }}:18631
+      dpm.app.sla.url: http://sla.{{ .Release.Namespace }}.{{ .Values.clusterDomain
+        }}:18631
+      dpm.app.timeseries.url: http://timeseries.{{ .Release.Namespace }}.{{ .Values.clusterDomain
+        }}:18631
+      dpm.app.topology.url: http://topology.{{ .Release.Namespace }}.{{ .Values.clusterDomain
+        }}:18631
+      dpm.app.tunneling.url: http://tunneling.{{ .Release.Namespace }}.{{ .Values.clusterDomain
+        }}:18631
+      dpm.appAuthToken: ${file("/streamsets/etc/secrets/token")}
+      dpm.base.path: /streamsets/main/
+      dpm.base.url: '{{ .Values.global.host }}/streamsets/main'
+      dpm.cloudpak.enabled: "true"
+      dpm.common.ipauth.enforcement.cache.lru_size: "30000"
+      dpm.common.ipauth.enforcement.cache.ttl_error_sec: "30"
+      dpm.common.ipauth.enforcement.cache.ttl_sec: "150"
+      dpm.common.ipauth.enforcement.disabled.prefixes: /security/public-rest,/security/_logout
+      dpm.common.ipauth.enforcement.error_log_interval_sec: "20"
+      dpm.common.ipauth.enforcement.file.filename: /etc/dpm/ip-auth.json
+      dpm.common.ipauth.enforcement.internal_only.prefixes: /nothing
+      dpm.common.ipauth.enforcement.mode: disabled
+      dpm.common.ipauth.enforcement.resource_pool.size: "50"
+      dpm.common.ipauth.enforcement.resource_pool.timeout_sec: "30"
+      dpm.common.ipauth.enforcement.rest_client.base_url: http://security.{{ .Release.Namespace
+        }}.{{ .Values.clusterDomain }}:18631/ipAuthorizer/v1
+      dpm.common.ipauth.enforcement.rest_client.timeout_initial_sec: "45"
+      dpm.common.ipauth.enforcement.rest_client.timeout_update_sec: "5"
+      dpm.common.ipauth.servlet.filter.enabled: "true"
+      dpm.componentId: ${file("/streamsets/etc/secrets/componentId")}
+      dpm.componentType: security-app
+      dpm.disabledOrgs.cacheExpiration.secs: "30"
+      dpm.domainForRequestedUrlCookie: ""
+      dpm.enabled: "true"
+      dpm.enforce.permissions.config.default: "true"
+      dpm.engine.default.telemetry.opt.in: "true"
+      dpm.engine.static.web.disabled: "true"
+      dpm.free.trial.expiration.batch.size: "100"
+      dpm.free.trial.expiration.stop.jobs: "true"
+      dpm.free.trial.expiration.task.period.mins: "60"
+      dpm.metrics.api_key: ${file("/streamsets/etc/secrets/datadog.api.key")}
+      dpm.metrics.env: '{{ .Release.Namespace }}'
+      dpm.metrics.ingest_step_sec: "60"
+      dpm.metrics.instance: '{{ .Release.Namespace }}'
+      dpm.metrics.mode: datadog
+      dpm.metrics.service: '{{ .Values.appName }}'
+      dpm.metrics.toTimeSeries.rate.sec: "300"
+      dpm.metrics.version: '{{ .Values.application.imageTag }}'
+      dpm.registration.retry.attempts: "5"
+      dpm.security.ipauth.backend.metrics.prefix: dpm.ipauth.backend
+      dpm.security.ipauth.backend.source.cache.lru_size: "100000"
+      dpm.security.ipauth.backend.source.cache.ttl_error_secs: "30"
+      dpm.security.ipauth.backend.source.cache.ttl_hit_secs: "120"
+      dpm.security.ipauth.backend.source.internal.cidr.blocks: 18.216.145.143/32,3.139.230.24/32,3.141.159.54/32
+      dpm.security.ipauth.backend.source.internal.cidr.version: 0ebb07ce-8a35-4e21-aac8-c367fb9fc56b
+      dpm.security.ipauth.backend.source.mode: dbms
+      dpm.security.validationTokenFrequency.secs: "30"
+      dpm.system.enable.org.config.legacy.kubernetes.integration: "true"
+      dpm.useQueryStringForRequestedUrl: "false"
+      engine.snowpark.url: http://streamflake.{{ .Release.Namespace }}.{{ .Values.clusterDomain
+        }}:19632
+      http.access.control.allow.origin: '{{ .Values.global.host }}/streamsets/main'
+      http.bindHost: 0.0.0.0
+      http.enable.forwarded.requests: "true"
+      http.maxThreads: "500"
+      http.port: "18631"
+      https.keystore.path: keystore.jks
+      https.port: "-1"
+      influx.enabled: "false"
+      logger.jetty.level: WARN
+      logger.jetty.name: org.eclipse.jetty
+      logger.jpa.level: INFO
+      logger.jpa.name: com.streamsets.lib.jpa
+      logger.query.level: WARN
+      logger.query.name: openjpa.Query
+      logger.sql.level: WARN
+      logger.sql.name: openjpa.jdbc.SQL
+      logger.streamsets.level: INFO
+      logger.streamsets.name: com.streamsets
+      mail.smtp.auth: "true"
+      mail.smtp.host: ${SCH_SMTP_SERVER}
+      mail.smtp.port: "587"
+      mail.smtp.starttls.enable: ""
+      mail.smtps.auth: ""
+      mail.smtps.host: ""
+      mail.smtps.port: ""
+      mail.transport.protocol: smtp
+      message.polling.delay: "30000"
+      metering.secret: ABCDEF123456
+      monitorInterval: "300"
+      name: dpmLog
+      passwordHandler.userIdAsPasswordReset: "true"
+      pii.masking.strict: "true"
+      pipeline.designer.system.sdc.password: admin
+      pipeline.designer.system.sdc.url: http://localhost:18630
+      pipeline.designer.system.sdc.username: admin
+      project_id: ${project_id}
+      provisioning.createDefaultEnvironment: "true"
+      rootLogger.appenderRef.console.ref: STDOUT
+      rootLogger.appenderRefs: console
+      rootLogger.level: INFO
+      s4.asterUrl: /streamsets/aster
+      s4.enabled: "true"
+      s4.instanceId: '{{ .Release.Namespace }}'
+      s4.orgLookUpUrlTemplate: ""
+      s4.saml.enabled: "false"
+      security.config.secret.store.prefix: sch_config_{{ .Release.Namespace }}
+      security.dpmApps.validationTokenFrequency.secs: "3600"
+      ui.banner.service.enable: "true"
+      ui.contextual.help.enabled: "true"
+      ui.csp.edit.modal.enabled: "true"
+      ui.customCaCert.enabled: "true"
+      ui.datadog.appId: 1e94b24c-6471-472c-83e7-8941fb3fef3a
+      ui.datadog.clientToken: pubc1298286af74893a4fcc28356c155dfa
+      ui.datadog.enabled: "true"
+      ui.datadog.env: '{{ .Release.Namespace }}'
+      ui.datadog.service: sch
+      ui.datadog.site: datadoghq.com
+      ui.deployed.txsnowflake.enabled: "true"
+      ui.designer.enabled: "true"
+      ui.doc.help.url: https://docs.streamsets.com/portal
+      ui.firstTimeUser.enabled: "true"
+      ui.formData.fileUploadMaxSize: "10485760"
+      ui.google.analytics.trackingID: ""
+      ui.initScript.enabled: "true"
+      ui.kubernetes.enabled: "true"
+      ui.marketingSidebar.url: https://streamsets.com/wp-json/epic/v2/in-product-news/
+      ui.mixpanel.token: 4ef913a16dc7870934884d003a201053
+      ui.onboarding.enabled: "true"
+      ui.one.trust.domain.script.id: ""
+      ui.pipeline.contextual.help.enabled: "true"
+      ui.proxyProperties.enabled: "true"
+      ui.saql.stage-search: "true"
+      ui.sequencing.show: "true"
+      ui.userflow.key: ct_wk6nupuf2vfg5n6iynnquvdn5u
+      ui.webhook.auth.types.enabled: "true"
+      xmail.from.address: no-reply@streamsets.com
+      xmail.password: ""
+      xmail.username: ""
+    resources:
+      limits:
+        cpu: "2"
+        memory: 2Gi
+      requests:
+        cpu: "1"
+        memory: 1.5Gi
+    secrets:
+    - bootstrap: true
+      name: security-secret
+      secrets:
+        app.db.pass: app.db.pass
+        app.db.user: app.db.user
+        componentId: componentId
+        token: token
+    - name: datadog-agent
+      secrets:
+        datadog.api.key: datadog.api.key
+    - name: dpm-admin
+      secrets:
+        dpm.admin.password: dpm.admin.password
+        dpm.admin.user: dpm.admin.user
+    - name: db-service-account
+      secrets:
+        db.service.pass: db.service.pass
+        db.service.user: db.service.user
+    virtualService:
+      gateway: '{{ .Release.Namespace }}-sch-gateway'
+      prefixes:
+      - /streamsets/main
+      rewrite: ' '
+  
+  

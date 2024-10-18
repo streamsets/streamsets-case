@@ -1,0 +1,6 @@
+inventory:
+  k8sScope: namespace
+  metadata:
+    name: streamsets
+    description: Setup files for deploying the Streamsets Services
+    displayName: Streamsets deployment

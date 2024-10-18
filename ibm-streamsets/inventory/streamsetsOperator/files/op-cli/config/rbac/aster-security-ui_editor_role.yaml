@@ -1,0 +1,27 @@
+# permissions for end users to edit aster-security-uis.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: ibm-streamsets-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: aster-security-ui-editor-role
+rules:
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - aster-security-uis
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - aster-security-uis/status
+  verbs:
+  - get

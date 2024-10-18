@@ -1,0 +1,245 @@
+resources:
+  metadata:
+    name: streamsetsOperator
+  resourceDefs:
+    containerImages:
+    - image: cpopen/ibm-streamsets-operator
+      tag: v5.1.0
+      digest: sha256:58e49e0ce655902fd8b1e6d9389949df05df56a7b33b8277b1d913d264b4ed91
+      mediaType: application/vnd.docker.distribution.manifest.list.v2
+      registries:
+      - host: icr.io
+      manifests:
+      - digest: sha256:f3f120782c0fd37fdec9b93d58e1dfdacdc2d684b3c8a516972cd30f8931b546
+        mediaType: application/vnd.docker.distribution.manifest.v2
+        platform:
+          architecture: amd64
+          os: linux
+        tag: v5.1.0-amd64
+      - digest: sha256:dc4d779436e8dfbd661a4face0369a3108b6332477e6aa499fbfcdc72904ddbd
+        mediaType: application/vnd.docker.distribution.manifest.v2
+        platform:
+          architecture: s390x
+          os: linux
+        tag: v5.1.0-s390x
+      - digest: sha256:b298acd4bbbc495fac1859de41453605eaba3b361b44a60819e0cf7116fdd08a
+        mediaType: application/vnd.docker.distribution.manifest.v2
+        platform:
+          architecture: ppc64le
+          os: linux
+        tag: v5.1.0-ppc64le
+    - image: cpopen/ibm-streamsets-operator-bundle
+      tag: v5.1.0
+      digest: sha256:f5ae75607e107a1dc3ddc4e3d45ee945b23ec7279d7b063c6dce82e0ce3b7188
+      mediaType: application/vnd.docker.distribution.manifest.list.v2
+      registries:
+      - host: icr.io
+      manifests:
+      - digest: sha256:b9a2e6a8057f268b901928c0d537ce7134388981f6e2ffe4e6c977e28e4cdc47
+        mediaType: application/vnd.docker.distribution.manifest.v2
+        platform:
+          architecture: amd64
+          os: linux
+        tag: v5.1.0-amd64
+      - digest: sha256:f892f1c703f7dabcbb7a1e365ee262c345824f867a9f6cf112f04a5c8edfae1f
+        mediaType: application/vnd.docker.distribution.manifest.v2
+        platform:
+          architecture: s390x
+          os: linux
+        tag: v5.1.0-s390x
+      - digest: sha256:3224f83821e0ca1c6e043b7eb1d7ccb8737e1117ca4c963d5acb416bdd71d878
+        mediaType: application/vnd.docker.distribution.manifest.v2
+        platform:
+          architecture: ppc64le
+          os: linux
+        tag: v5.1.0-ppc64le
+      metadata:
+        operators_operatorframework_io:
+          bundle:
+            mediaType: registry+v1
+    - image: cpopen/ibm-streamsets-operator-catalog
+      tag: v5.1.0
+      digest: sha256:32311e0483913c79b38a54115880088e2b9ce2ff84e4ed650829fd4189eb7029
+      mediaType: application/vnd.docker.distribution.manifest.list.v2
+      registries:
+      - host: icr.io
+      manifests:
+      - digest: sha256:dbe96507f349a465c8b8f97b4b9754c15f24438f77be6a2dfd69f1736b10041a
+        mediaType: application/vnd.docker.distribution.manifest.v2
+        platform:
+          architecture: amd64
+          os: linux
+        tag: v5.1.0-amd64
+      - digest: sha256:6d74b1308d6516dd5e5e3516b0ddb9d7fb95e156a8cc58be1f937b2beafa2c16
+        mediaType: application/vnd.docker.distribution.manifest.v2
+        platform:
+          architecture: s390x
+          os: linux
+        tag: v5.1.0-s390x
+      - digest: sha256:612a3a6fee37a1759f590774a1ea69bd7a155b2473c49ab276a45b84cf1aa1fc
+        mediaType: application/vnd.docker.distribution.manifest.v2
+        platform:
+          architecture: ppc64le
+          os: linux
+        tag: v5.1.0-ppc64le
+      metadata:
+        operators_operatorframework_io:
+          catalog:
+            cpcicd_ibm_com:
+              targetCatalogs:
+                catalogRefs:
+                - ibm-public: {}
+            mediaType: registry+v1;impl=fbc 
+    files:
+    - mediaType: application/vnd.case.resource.script.bash.v1+launcher
+      ref: launch.sh
+    - mediaType: application/vnd.case.resource.script.bash.v1
+      ref: airgap.sh
+    - mediaType: application/vnd.case.resource.script.bash.v1
+      ref: launch-impl.sh
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-olm/catalog-source.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-olm/operator-group.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-olm/subscription.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/istio/istio.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/clusterrole.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/clusterrole_binding.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/auth_proxy_service.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/aster-security-ui_editor_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/aster-security-ui_viewer_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/aster-security_editor_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/aster-security_viewer_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/auth_proxy_client_clusterrole.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/auth_proxy_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/auth_proxy_role_binding.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/banner_editor_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/banner_viewer_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/connection_editor_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/connection_viewer_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/docs_editor_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/docs_viewer_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/jobrunner_editor_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/jobrunner_viewer_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/leader_election_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/leader_election_role_binding.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/messaging_editor_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/messaging_viewer_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/metering_editor_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/metering_viewer_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/misc-resources_editor_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/misc-resources_viewer_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/mysql_editor_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/mysql_viewer_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/notification_editor_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/notification_viewer_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/pipelinestore_editor_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/pipelinestore_viewer_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/provisioning_editor_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/provisioning_viewer_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/scheduler_editor_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/scheduler_viewer_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/security_editor_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/security_viewer_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/sequencing_editor_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/sequencing_viewer_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/sla_editor_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/sla_viewer_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/timeseries_editor_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/timeseries_viewer_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/topology_editor_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/topology_viewer_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/tunneling_editor_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/rbac/tunneling_viewer_role.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_sch-istios.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_aster-securities.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_aster-security-uis.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_banners.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_connections.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_docs.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_jobrunners.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_messagings.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_meterings.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_misc-resources.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_mysqls.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_notifications.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_pipelinestores.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_provisionings.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_schedulers.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_securities.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_sequencings.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_slas.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_timeseries.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_topologies.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_tunnelings.yaml

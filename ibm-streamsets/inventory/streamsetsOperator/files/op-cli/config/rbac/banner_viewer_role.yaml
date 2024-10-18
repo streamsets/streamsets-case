@@ -1,0 +1,23 @@
+# permissions for end users to view banners.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: ibm-streamsets-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: banner-viewer-role
+rules:
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - banners
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - software.streamsets.ibm.com
+  resources:
+  - banners/status
+  verbs:
+  - get

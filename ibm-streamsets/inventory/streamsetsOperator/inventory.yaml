@@ -1,0 +1,6 @@
+inventory:
+  k8sScope: cluster
+  metadata:
+    name: streamsetsOperator
+    description: Setup files for deploying the Streamsets Operator
+    displayName: Streamsets Operator

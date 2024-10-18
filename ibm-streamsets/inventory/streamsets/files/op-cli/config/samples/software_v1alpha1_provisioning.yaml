@@ -1,0 +1,260 @@
+apiVersion: software.streamsets.ibm.com/v1alpha1
+kind: Provisioning
+metadata:
+  name: provisioning-sample
+spec:
+  # Default values copied from <project_dir>/helm-charts/provisioning/values.yaml
+  provisioning-deploy:
+    appName: provisioning
+    application:
+      args: /apps/bin/streamsets dpm -verbose
+      containerRegistry: cp.stg.icr.io/cp/cpd/ibm-streamsets-
+      dbUpgradeArgs: /apps/bin/streamsets cli buildSchema -a --debug
+      dpmcliVersion: software-da90442114a1a46b25751d498687b0969cf5dd45
+      imageName: provisioning-app
+      imageSuffix: -amd64
+      imageTag: 4.4.5
+      port: 18631
+    cloudSqlProxy:
+      enabled: false
+    clusterDomain: svc.cluster.local
+    dbHost: ibm-streamsets-self-managed-mysql-mysql-deploy-headless
+    env:
+      APPS_TO_START: '{{ .Values.appName }}'
+      AWS_REGION: us-west-2
+      DD_ENV: '{{ .Release.Namespace }}'
+      DD_LOGS_INJECTION: "true"
+      DD_SERVICE: '{{ .Values.appName }}'
+      DD_VERSION: '{{ .Values.application.imageTag }}'
+      DPM_JAVA_OPTS: -Dlog4j2.formatMsgNoLookups=true -Ddd.service=sch-provisioning
+        -Ddd.logs.injection=true -Ddd.env={{ .Release.Namespace }} -XX:+PrintFlagsFinal
+        -XX:MaxRAMPercentage=70 -XX:+UseStringDeduplication -XX:MaxDirectMemorySize=256M
+        -XX:ReservedCodeCacheSize=240M -Xss1M -XX:+CrashOnOutOfMemoryError -XX:+HeapDumpOnOutOfMemoryError
+        -XX:HeapDumpPath=/diagnostics -XX:ErrorFile=/diagnostics/app.err
+      INIT_SECURITY: "yes"
+      QUERY_DB_TIMEOUT: 600000
+    global:
+      host: https://cpd-zen.apps.rosa.rosa.sl9v.p3.openshiftapps.com
+    healthCheck:
+      path: /public-rest/v1/health
+      port: 18631
+    heapShipper:
+      enabled: false
+      image: 482402078688.dkr.ecr.us-east-2.amazonaws.com/heap-shipper-aws:1.0.0
+      uploadCommand: aws s3 cp $file s3://${HEAP_DUMP_BUCKET}/${POD_NAMESPACE}/${POD_NAME}/$filename
+    hpa:
+      maxReplicas: 4
+      minReplicas: 2
+    httpEnabled: true
+    istio:
+      enabled: true
+    nameSpaceServiceAccount: streamsets
+    properties:
+      admin.fetchComponentsFrequency.secs: 60
+      admin.http.bindHost: 0.0.0.0
+      admin.http.port: 18632
+      admin.http.realm.file.permission.check: "false"
+      admin.https.keystore.path: keystore.jks
+      admin.https.port: -1
+      apps.to.start: '{{ .Values.appName }}'
+      audit.purge.age.days: 60
+      audit.purge.batch.delay.millis: 1000
+      audit.purge.batch.size: 1000
+      audit.purge.freq.minutes: 720
+      audit.purge.init.delay.minutes: 60
+      check.frequency.millis: 1296000000
+      csp.aws.development.credential.mode: false
+      csp.aws.role.assumer.cache.max.entries: 1000
+      csp.aws.role.assumer.expiration.time.mins: 30
+      csp.aws.role.assumer.region: us-west-2
+      csp.bootstrap.download.url: https://archives.streamsets.com/bootstrap/4.4.3
+      csp.dep.enabled.monitor.freq.secs: 30
+      csp.dep.enabled.monitor.min.age.mins: 5
+      csp.dep.enabled.monitor.num.jpa.limit: 20
+      csp.dep.processing.monitor.freq.secs: 60
+      csp.dep.processing.monitor.min.age.mins: 1
+      csp.dep.processing.monitor.num.jpa.limit: 20
+      csp.dep.processing.monitor.process.now.fallback.min.age.mins: 5
+      csp.dep.processing.monitor.process.now.waiting.timeout.secs: 3
+      csp.env.enabled.monitor.freq.secs: 30
+      csp.env.enabled.monitor.min.age.mins: 5
+      csp.env.enabled.monitor.num.jpa.limit: 20
+      csp.env.processing.monitor.freq.secs: 60
+      csp.env.processing.monitor.min.age.mins: 1
+      csp.env.processing.monitor.num.jpa.limit: 20
+      csp.env.processing.monitor.process.now.fallback.min.age.mins: 5
+      csp.env.processing.monitor.process.now.waiting.timeout.secs: 3
+      csp.gcp.account.impersonator.cache.max.entries: 1000
+      csp.gcp.always.on.labels: vendor=streamsets-sch,env={{ .Release.Namespace }}
+      csp.gcp.assume.role.aws.role.duration.mins: 60
+      csp.gcp.assume.role.aws.role.region: us-west-2
+      csp.gcp.assume.role.gcp.service.account.duration.mins: 60
+      csp.secrets.aws.cache.expiration.time.mins: 60
+      csp.secrets.aws.cache.max.entries: 1000
+      csp.secrets.manager.gcp.cache.expiration.time.mins: 60
+      csp.secrets.manager.gcp.cache.max.entries: 1000
+      csp.secrets.manager.ibm.cpd.authorization.zen.api.key: QWtzaGF5R29nZXJpOkFiYzZSSWVvYjNkejZUUzZVSnVpS1cxeFJGaHQzeGg3NmFLeXMyRncK
+      csp.secrets.manager.ibm.cpd.expiration.max.entries: "1000"
+      csp.secrets.manager.ibm.cpd.expiration.time.minutes: "60"
+      csp.secrets.manager.ibm.cpd.owner.uid: "1000331037"
+      csp.secrets.manager.ibm.cpd.url: https://cpd-zen.apps.rosa.rosa.sl9v.p3.openshiftapps.com
+      csp.secrets.manager.ibm.cpd.vault.name: internal
+      csp.secrets.manager.ibm.cpd.vault.uid: "0000000000"
+      csp.secrets.manager.mode: ibm_cpd
+      db.dbcp.extra: validationQuery=SELECT 1
+      db.dbcp.max.idle: 25
+      db.dbcp.max.open: 100
+      db.dbcp.max.wait: 10000
+      db.dbcp.min.idle: 25
+      db.dbcp.test.on.borrow: true
+      db.openjpa.ConnectionDriverName: org.mariadb.jdbc.Driver
+      db.openjpa.ConnectionPassword: ${file("/streamsets/etc/secrets/app.db.pass")}
+      db.openjpa.ConnectionURL: jdbc:mysql://{{ .Values.dbHost }}.{{ .Release.Namespace
+        }}.{{ .Values.clusterDomain }}:3306/{{ .Release.Namespace }}{{ .Values.appName
+        }}?permitMysqlScheme=true&allowPublicKeyRetrieval=true&sslMode=trust
+      db.openjpa.ConnectionUserName: ${file("/streamsets/etc/secrets/app.db.user")}
+      db.openjpa.javax.persistence.query.timeout: ${env("QUERY_DB_TIMEOUT")}
+      db.transactionRetry.maximumWait.millis: 200
+      db.transactionRetry.minimumWait.millis: 100
+      db.transactionRetry.retries: 4
+      dpm.acl.permission.batch.size: 10000
+      dpm.api.default.len.value: 100
+      dpm.api.max.len.value: 1000
+      dpm.api.pagination.parameters.check.enabled: false
+      dpm.app.jobrunner.url: http://jobrunner.{{ .Release.Namespace }}.{{ .Values.clusterDomain
+        }}:18631
+      dpm.app.messaging.url: http://messaging.{{ .Release.Namespace }}.{{ .Values.clusterDomain
+        }}:18631
+      dpm.app.provisioning.url: http://provisioning.{{ .Release.Namespace }}.{{ .Values.clusterDomain
+        }}:18631
+      dpm.app.security.url: http://security.{{ .Release.Namespace }}.{{ .Values.clusterDomain
+        }}:18631
+      dpm.appAuthToken: ${file("/streamsets/etc/secrets/token")}
+      dpm.base.url: '{{ .Values.global.host }}/streamsets/main'
+      dpm.common.ipauth.enforcement.cache.lru_size: 100000
+      dpm.common.ipauth.enforcement.cache.ttl_error_sec: 30
+      dpm.common.ipauth.enforcement.cache.ttl_sec: 150
+      dpm.common.ipauth.enforcement.disabled.prefixes: /provisioning/bootstrap,/provisioning/bootstrap.jar,/deployment-tools.sh,/streamsets-engine-install.sh,/streamsets-kubernetes-agent-get.sh
+      dpm.common.ipauth.enforcement.error_log_interval_sec: 20
+      dpm.common.ipauth.enforcement.internal_only.prefixes: /security/rest/*/ipAuthorizer
+      dpm.common.ipauth.enforcement.metrics.prefix: dpm.ipauth.enforcement
+      dpm.common.ipauth.enforcement.mode: disabled
+      dpm.common.ipauth.enforcement.rest_client.base_url: http://security:18631/security/rest/v1/ipAuthorizer
+      dpm.common.ipauth.enforcement.rest_client.timeout_initial_sec: 45
+      dpm.common.ipauth.enforcement.rest_client.timeout_update_sec: 5
+      dpm.common.ipauth.servlet.filter.enabled: true
+      dpm.componentId: ${file("/streamsets/etc/secrets/componentId")}
+      dpm.disabledOrgs.cacheExpiration.secs: 30
+      dpm.enabled: true
+      dpm.free.trial.expiration.stop.jobs: true
+      dpm.free.trial.expiration.task.period.mins: 60
+      dpm.metrics.api_key: ${file("/streamsets/etc/secrets/datadog.api.key")}
+      dpm.metrics.env: '{{ .Release.Namespace }}'
+      dpm.metrics.ingest_step_sec: 60
+      dpm.metrics.instance: '{{ .Release.Namespace }}'
+      dpm.metrics.mode: datadog
+      dpm.metrics.service: '{{ .Values.appName }}'
+      dpm.metrics.toTimeSeries.rate.sec: 300
+      dpm.metrics.version: '{{ .Values.imageTag }}'
+      dpm.provisioning.javainstall.enabled: true
+      dpm.registration.retry.attempts: 5
+      dpm.security.validationTokenFrequency.secs: 30
+      dpm.useQueryStringForRequestedUrl: false
+      engine.config.proxy.integration.enabled: true
+      http.access.control.allow.origin: '{{ .Values.global.host }}/streamsets'
+      http.bindHost: 0.0.0.0
+      http.enable.forwarded.requests: true
+      http.maxThreads: 500
+      http.port: 18631
+      https.keystore.path: keystore.jks
+      https.port: -1
+      influx.enabled: false
+      mail.smtp.auth: true
+      mail.smtp.host: ${SCH_SMTP_SERVER}
+      mail.smtp.port: 587
+      mail.transport.protocol: smtp
+      message.fetch.batchSize: 300
+      message.polling.delay: 3000
+      pii.masking.strict: true
+      pipeline.designer.system.sdc.password: admin
+      pipeline.designer.system.sdc.url: http://localhost:18630
+      pipeline.designer.system.sdc.username: admin
+      pm.free.trial.expiration.batch.size: 100
+      s4.asterUrl: ${SCH_ASTER_URL}
+      s4.enabled: true
+      s4.instanceId: '{{ .Release.Namespace }}'
+      s4.orgLookUpUrlTemplate: ${SCH_ASTER_URL}/api/security/public/v3/orgs/{orgId}/info
+      s4.saml.enabled: true
+      security.dpmApps.validationTokenFrequency.secs: 3600
+      spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults: "false"
+      ui.banner.service.enable: true
+      ui.contextual.help.enabled: true
+      ui.csp.edit.modal.enabled: true
+      ui.customCaCert.enabled: true
+      ui.datadog.appId: eab7edb5-6e7f-4638-9081-65102f02ae76
+      ui.datadog.clientToken: pub660d4c0ea7ac6bd6ea5e5e4824c323de
+      ui.datadog.enableConsoleLogging: true
+      ui.datadog.enabled: true
+      ui.datadog.env: dev
+      ui.datadog.service: sch
+      ui.datadog.site: datadoghq.com
+      ui.deployed.txsnowflake.enabled: true
+      ui.designer.enabled: true
+      ui.doc.help.url: https://docs.streamsets.com/portal
+      ui.firstTimeUser.enabled: true
+      ui.formData.fileUploadMaxSize: 10485760
+      ui.initScript.enabled: true
+      ui.kubernetes.enabled: true
+      ui.marketingSidebar.url: https://streamsets.com/wp-json/epic/v2/dev-sign-up-news/
+      ui.mixpanel.token: 2916ae257460da62a92c707099d2b69e
+      ui.onboarding.enabled: true
+      ui.onboarding_flow: enabled
+      ui.one.trust.domain.script.id: c9a279d2-0986-4cb6-9373-6188dc96f1d3-tes
+      ui.pipeline.contextual.help.enabled: true
+      ui.proxyProperties.enabled: true
+      ui.saql.stage-search: true
+      ui.sequencing.show: true
+      ui.signup.enabled: false
+      ui.smartlook.key: cca174791d5fa936571f71d5218ad9cd5e9962ee
+      ui.split.sdk.key: qn3lm0rg1eouda2oe99b1rua75oprmtfh7ph
+      ui.sqlQueryToStages.enabled: true
+      ui.userflow.key: ct_murnm43oizhpdmgdfem2c3kreu
+      ui.webhook.auth.types.enabled: true
+      xmail.from.address: no-reply@streamsets.com
+    resources:
+      limits:
+        cpu: "4"
+        memory: 6Gi
+      requests:
+        cpu: "2"
+        memory: 3Gi
+    secrets:
+    - bootstrap: true
+      name: provisioning-secret
+      secrets:
+        app.db.pass: app.db.pass
+        app.db.user: app.db.user
+        componentId: componentId
+        token: token
+    - name: datadog-agent
+      secrets:
+        datadog.api.key: datadog.api.key
+    - name: dpm-admin
+      secrets:
+        dpm.admin.password: dpm.admin.password
+        dpm.admin.user: dpm.admin.user
+    - name: db-service-account
+      secrets:
+        db.service.pass: db.service.pass
+        db.service.user: db.service.user
+    virtualService:
+      gateway: '{{ .Release.Namespace }}-sch-gateway'
+      prefixes:
+      - /streamsets/main/provisioning
+      rewrite: /provisioning
+    volumesMount:
+    - mountPath: /apps/etc/application.properties
+      name: application-properties
+      subPath: application.properties
+  
+  
