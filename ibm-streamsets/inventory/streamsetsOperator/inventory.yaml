@@ -4,3 +4,4 @@ inventory:
     name: streamsetsOperator
     description: Setup files for deploying the Streamsets Operator
     displayName: Streamsets Operator
+    case.launcher.isdefault: true

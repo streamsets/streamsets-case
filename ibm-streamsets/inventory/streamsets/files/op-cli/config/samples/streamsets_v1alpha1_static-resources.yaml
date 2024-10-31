@@ -1,0 +1,48 @@
+apiVersion: streamsets.cpd.ibm.com/v1alpha1
+kind: Static-resources
+metadata:
+  name: static-resources-sample
+spec:
+  # Default values copied from <project_dir>/helm-charts/static-resources/values.yaml
+  static-content:
+    appName: static-content
+    application:
+      containerRegistry: cp.stg.icr.io/cp/cpd/ibm-streamsets-
+      dpmcliVersion: software-da90442114a1a46b25751d498687b0969cf5dd45
+      imageName: cpd-nginx
+      imageSuffix: -amd64
+      imageTag: 6.0.0
+      port: 8080
+    cloudProvider: CPD
+    clusterDomain: svc.cluster.local
+    configFile: |
+      {
+      }
+    dbHost: ibm-streamsets-self-managed-mysql-mysql-deploy-headless
+    global:
+      host: https://cpd-zen.apps.rosa.rosa.sl9v.p3.openshiftapps.com
+    healthCheck:
+      path: /admin/health
+      port: 8080
+    heapShipper:
+      enabled: false
+    hpa:
+      maxReplicas: 3
+      minReplicas: 2
+    istio:
+      enabled: false
+    nameSpaceServiceAccount: streamsets
+    resources:
+      limits:
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 64Mi
+    virtualService:
+      gateway: '{{ .Release.Namespace }}-sch-gateway'
+      prefixes:
+      - /streamsets/main/static-content
+      rewrite: /static-content
+  
+  

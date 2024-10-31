@@ -29,7 +29,7 @@ rules:
   - create
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Aster-security-ui
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Aster-security-ui
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -85,7 +85,7 @@ rules:
   - "jobs"
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Aster-security
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Aster-security
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -141,7 +141,7 @@ rules:
 
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Banner
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Banner
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -197,7 +197,7 @@ rules:
 
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Base-istio
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Base-istio
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -247,7 +247,7 @@ rules:
   - "jobs"
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Connection
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Connection
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -303,7 +303,7 @@ rules:
 
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Docs
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Docs
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -358,7 +358,7 @@ rules:
   - "jobs"
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Jobrunner
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Jobrunner
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -414,7 +414,7 @@ rules:
 
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Messaging
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Messaging
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -469,7 +469,7 @@ rules:
   - "jobs"
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Metering
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Metering
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -524,7 +524,7 @@ rules:
   - "jobs"
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Misc-resources
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Misc-resources
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -542,7 +542,7 @@ rules:
   - watch
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Mysql
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Mysql
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -566,7 +566,7 @@ rules:
   - "networkpolicies"
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Notification
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Notification
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -621,7 +621,7 @@ rules:
   - "jobs"
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Pipelinestore
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Pipelinestore
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -676,7 +676,7 @@ rules:
   - "jobs"
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Provisioning
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Provisioning
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -734,7 +734,7 @@ rules:
   - "jobs"
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Sch-istio
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Sch-istio
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -792,7 +792,7 @@ rules:
   - "jobs"
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Scheduler
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Scheduler
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -847,7 +847,7 @@ rules:
   - "jobs"
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Security
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Security
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -906,7 +906,7 @@ rules:
 
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Sequencing
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Sequencing
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -961,7 +961,7 @@ rules:
   - "jobs"
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Sla
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Sla
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -1016,7 +1016,7 @@ rules:
   - "jobs"
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Timeseries
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Timeseries
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -1071,7 +1071,7 @@ rules:
   - "jobs"
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Topology
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Topology
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com
@@ -1126,7 +1126,7 @@ rules:
   - "jobs"
 
 ##
-## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Tunneling
+## Rules for streamsets.cpd.ibm.com/v1alpha1, Kind: Tunneling
 ##
 - apiGroups:
   - streamsets.cpd.ibm.com

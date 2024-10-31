@@ -1,0 +1,504 @@
+apiVersion: streamsets.cpd.ibm.com/v1alpha1
+kind: Mysql
+metadata:
+  name: mysql-sample
+spec:
+  # Default values copied from <project_dir>/helm-charts/mysql/values.yaml
+  mysql-deploy:
+    application:
+      containerRegistry: cp.stg.icr.io/cp/cpd/ibm-streamsets-
+      dpmcliVersion: software-da90442114a1a46b25751d498687b0969cf5dd45
+      imageSuffix: -amd64
+    architecture: standalone
+    auth:
+      authenticationPolicy: ""
+      createDatabase: true
+      customPasswordFiles:
+        root: /streamsets/etc/secrets/db.service.pass
+        user: /streamsets/etc/secrets/db.service.pass
+      database: my_database
+      existingSecret: ""
+      forcePassword: true
+      password: ""
+      replicationPassword: ""
+      replicationUser: replicator
+      rootPassword: ""
+      usePasswordFiles: true
+      username: ""
+    cloudProvider: CPD
+    clusterDomain: svc.cluster.local
+    common:
+      exampleValue: common-chart
+      global:
+        compatibility:
+          openshift:
+            adaptSecurityContext: auto
+        host: https://cpd-zen.apps.rosa.rosa.sl9v.p3.openshiftapps.com
+        imagePullSecrets: []
+        imageRegistry: ""
+        storageClass: ""
+    commonAnnotations: {}
+    commonLabels:
+      icpdsupport/addOnId: streamsets
+      sidecar.istio.io/inject: "true"
+    dbHost: ibm-streamsets-self-managed-mysql-mysql-deploy-headless
+    diagnosticMode:
+      args:
+      - infinity
+      command:
+      - sleep
+      enabled: false
+    extraDeploy: []
+    fullnameOverride: ibm-streamsets-self-managed-mysql-mysql-deploy
+    global:
+      compatibility:
+        openshift:
+          adaptSecurityContext: auto
+      host: https://cpd-zen.apps.rosa.rosa.sl9v.p3.openshiftapps.com
+      imagePullSecrets: []
+      imageRegistry: ""
+      storageClass: ""
+    heapShipper:
+      enabled: false
+    image:
+      debug: false
+      digest: ""
+      pullPolicy: IfNotPresent
+      pullSecrets: []
+      registry: docker.io
+      repository: bitnami/mysql
+      tag: 8.0.36
+    initdbScripts: {}
+    initdbScriptsConfigMap: ""
+    kubeVersion: ""
+    metrics:
+      containerPorts:
+        http: 9104
+      containerSecurityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        enabled: true
+        readOnlyRootFilesystem: true
+        runAsGroup: 1001
+        runAsNonRoot: true
+        runAsUser: 1001
+        seLinuxOptions: {}
+        seccompProfile:
+          type: RuntimeDefault
+      enabled: false
+      extraArgs:
+        primary: []
+        secondary: []
+      image:
+        digest: ""
+        pullPolicy: IfNotPresent
+        pullSecrets: []
+        registry: docker.io
+        repository: bitnami/mysqld-exporter
+        tag: 0.15.1-debian-12-r25
+      livenessProbe:
+        enabled: true
+        failureThreshold: 3
+        initialDelaySeconds: 120
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      prometheusRule:
+        additionalLabels: {}
+        enabled: false
+        namespace: ""
+        rules: []
+      readinessProbe:
+        enabled: true
+        failureThreshold: 3
+        initialDelaySeconds: 30
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources: {}
+      resourcesPreset: nano
+      service:
+        annotations:
+          prometheus.io/port: '{{ .Values.metrics.service.port }}'
+          prometheus.io/scrape: "true"
+        clusterIP: ""
+        port: 9104
+        type: ClusterIP
+      serviceMonitor:
+        annotations: {}
+        enabled: false
+        honorLabels: false
+        interval: 30s
+        jobLabel: ""
+        labels: {}
+        metricRelabelings: []
+        namespace: ""
+        relabelings: []
+        scrapeTimeout: ""
+        selector: {}
+    nameOverride: ""
+    nameSpaceServiceAccount: streamsets
+    namespaceOverride: ""
+    networkPolicy:
+      allowExternal: true
+      allowExternalEgress: true
+      enabled: true
+      extraEgress: []
+      extraIngress: []
+      ingressNSMatchLabels: {}
+      ingressNSPodMatchLabels: {}
+    primary:
+      affinity: {}
+      args: []
+      automountServiceAccountToken: false
+      command: []
+      configuration: |-
+        [mysqld]
+        authentication_policy='{{- .Values.auth.authenticationPolicy | default "* ,," }}'
+        skip-name-resolve
+        explicit_defaults_for_timestamp
+        basedir=/opt/bitnami/mysql
+        plugin_dir=/opt/bitnami/mysql/lib/plugin
+        port={{ .Values.primary.containerPorts.mysql }}
+        mysqlx={{ ternary 1 0 .Values.primary.enableMySQLX }}
+        mysqlx_port={{ .Values.primary.containerPorts.mysqlx }}
+        socket=/opt/bitnami/mysql/tmp/mysql.sock
+        datadir=/bitnami/mysql/data
+        tmpdir=/opt/bitnami/mysql/tmp
+        max_allowed_packet=16M
+        bind-address=*
+        pid-file=/opt/bitnami/mysql/tmp/mysqld.pid
+        log-error=/opt/bitnami/mysql/logs/mysqld.log
+        character-set-server=UTF8
+        slow_query_log=0
+        long_query_time=10.0
+  
+        [client]
+        port={{ .Values.primary.containerPorts.mysql }}
+        socket=/opt/bitnami/mysql/tmp/mysql.sock
+        default-character-set=UTF8
+        plugin_dir=/opt/bitnami/mysql/lib/plugin
+  
+        [manager]
+        port={{ .Values.primary.containerPorts.mysql }}
+        socket=/opt/bitnami/mysql/tmp/mysql.sock
+        pid-file=/opt/bitnami/mysql/tmp/mysqld.pid
+      containerPorts:
+        mysql: 3306
+        mysqlx: 33060
+      containerSecurityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        enabled: true
+        readOnlyRootFilesystem: true
+        runAsGroup: 1001
+        runAsNonRoot: true
+        runAsUser: 1001
+        seLinuxOptions: {}
+        seccompProfile:
+          type: RuntimeDefault
+      customLivenessProbe: {}
+      customReadinessProbe: {}
+      customStartupProbe: {}
+      enableMySQLX: false
+      existingConfigmap: ""
+      extraEnvVars:
+      - name: max-allowed-packet
+        value: "67108864"
+      - name: character-set-server
+        value: utf8mb3
+      extraEnvVarsCM: ""
+      extraEnvVarsSecret: ""
+      extraFlags: ""
+      extraPodSpec: {}
+      extraPorts: []
+      extraVolumeMounts:
+      - mountPath: /streamsets/etc/secrets/db.service.user
+        name: secrets
+        subPath: db.service.user
+      - mountPath: /streamsets/etc/secrets/db.service.pass
+        name: secrets
+        subPath: db.service.pass
+      extraVolumes:
+      - name: secrets
+        projected:
+          sources:
+          - secret:
+              name: db-service-account
+      hostAliases: []
+      initContainers: []
+      lifecycleHooks: {}
+      livenessProbe:
+        enabled: true
+        failureThreshold: 3
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      name: primary
+      nodeAffinityPreset:
+        key: ""
+        type: ""
+        values: []
+      nodeSelector: {}
+      pdb:
+        create: true
+        maxUnavailable: ""
+        minAvailable: ""
+      persistence:
+        accessModes:
+        - ReadWriteOnce
+        annotations: {}
+        enabled: true
+        existingClaim: ""
+        selector: {}
+        size: 8Gi
+        storageClass: ""
+        subPath: ""
+      persistentVolumeClaimRetentionPolicy:
+        enabled: false
+        whenDeleted: Retain
+        whenScaled: Retain
+      podAffinityPreset: ""
+      podAnnotations: {}
+      podAntiAffinityPreset: soft
+      podLabels: {}
+      podManagementPolicy: ""
+      podSecurityContext:
+        enabled: true
+        fsGroup: 1001
+        fsGroupChangePolicy: Always
+        supplementalGroups: []
+        sysctls: []
+      priorityClassName: ""
+      readinessProbe:
+        enabled: true
+        failureThreshold: 3
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources:
+        limits:
+          cpu: 10
+          memory: 40Gi
+        requests:
+          cpu: 8
+          memory: 32Gi
+      resourcesPreset: small
+      runtimeClassName: ""
+      schedulerName: ""
+      service:
+        annotations: {}
+        clusterIP: ""
+        externalTrafficPolicy: Cluster
+        extraPorts: []
+        headless:
+          annotations: {}
+        loadBalancerIP: ""
+        loadBalancerSourceRanges: []
+        nodePorts:
+          mysql: ""
+          mysqlx: ""
+        ports:
+          mysql: 3306
+          mysqlx: 33060
+        sessionAffinity: None
+        sessionAffinityConfig: {}
+        type: ClusterIP
+      sidecars: []
+      startupProbe:
+        enabled: true
+        failureThreshold: 10
+        initialDelaySeconds: 15
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      terminationGracePeriodSeconds: ""
+      tolerations: []
+      topologySpreadConstraints: []
+      updateStrategy:
+        type: RollingUpdate
+    rbac:
+      create: false
+      rules: []
+    secondary:
+      affinity: {}
+      args: []
+      automountServiceAccountToken: false
+      command: []
+      configuration: |-
+        [mysqld]
+        authentication_policy='{{- .Values.auth.authenticationPolicy | default "* ,," }}'
+        skip-name-resolve
+        explicit_defaults_for_timestamp
+        basedir=/opt/bitnami/mysql
+        plugin_dir=/opt/bitnami/mysql/lib/plugin
+        port={{ .Values.secondary.containerPorts.mysql }}
+        mysqlx={{ ternary 1 0 .Values.secondary.enableMySQLX }}
+        mysqlx_port={{ .Values.secondary.containerPorts.mysqlx }}
+        socket=/opt/bitnami/mysql/tmp/mysql.sock
+        datadir=/bitnami/mysql/data
+        tmpdir=/opt/bitnami/mysql/tmp
+        max_allowed_packet=16M
+        bind-address=*
+        pid-file=/opt/bitnami/mysql/tmp/mysqld.pid
+        log-error=/opt/bitnami/mysql/logs/mysqld.log
+        character-set-server=UTF8
+        slow_query_log=0
+        long_query_time=10.0
+  
+        [client]
+        port={{ .Values.secondary.containerPorts.mysql }}
+        socket=/opt/bitnami/mysql/tmp/mysql.sock
+        default-character-set=UTF8
+        plugin_dir=/opt/bitnami/mysql/lib/plugin
+  
+        [manager]
+        port={{ .Values.secondary.containerPorts.mysql }}
+        socket=/opt/bitnami/mysql/tmp/mysql.sock
+        pid-file=/opt/bitnami/mysql/tmp/mysqld.pid
+      containerPorts:
+        mysql: 3306
+        mysqlx: 33060
+      containerSecurityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        enabled: true
+        readOnlyRootFilesystem: true
+        runAsGroup: 1001
+        runAsNonRoot: true
+        runAsUser: 1001
+        seLinuxOptions: {}
+        seccompProfile:
+          type: RuntimeDefault
+      customLivenessProbe: {}
+      customReadinessProbe: {}
+      customStartupProbe: {}
+      enableMySQLX: false
+      existingConfigmap: ""
+      extraEnvVars: []
+      extraEnvVarsCM: ""
+      extraEnvVarsSecret: ""
+      extraFlags: ""
+      extraPodSpec: {}
+      extraPorts: []
+      extraVolumeMounts: []
+      extraVolumes: []
+      hostAliases: []
+      initContainers: []
+      lifecycleHooks: {}
+      livenessProbe:
+        enabled: true
+        failureThreshold: 3
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      name: secondary
+      nodeAffinityPreset:
+        key: ""
+        type: ""
+        values: []
+      nodeSelector: {}
+      pdb:
+        create: true
+        maxUnavailable: ""
+        minAvailable: ""
+      persistence:
+        accessModes:
+        - ReadWriteOnce
+        annotations: {}
+        enabled: true
+        existingClaim: ""
+        selector: {}
+        size: 8Gi
+        storageClass: ""
+        subPath: ""
+      persistentVolumeClaimRetentionPolicy:
+        enabled: false
+        whenDeleted: Retain
+        whenScaled: Retain
+      podAffinityPreset: ""
+      podAnnotations: {}
+      podAntiAffinityPreset: soft
+      podLabels: {}
+      podManagementPolicy: ""
+      podSecurityContext:
+        enabled: true
+        fsGroup: 1001
+        fsGroupChangePolicy: Always
+        supplementalGroups: []
+        sysctls: []
+      priorityClassName: ""
+      readinessProbe:
+        enabled: true
+        failureThreshold: 3
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      replicaCount: 1
+      resources: {}
+      resourcesPreset: small
+      runtimeClassName: ""
+      schedulerName: ""
+      service:
+        annotations: {}
+        clusterIP: ""
+        externalTrafficPolicy: Cluster
+        extraPorts: []
+        headless:
+          annotations: {}
+        loadBalancerIP: ""
+        loadBalancerSourceRanges: []
+        nodePorts:
+          mysql: ""
+          mysqlx: ""
+        ports:
+          mysql: 3306
+          mysqlx: 33060
+        sessionAffinity: None
+        sessionAffinityConfig: {}
+        type: ClusterIP
+      sidecars: []
+      startupProbe:
+        enabled: true
+        failureThreshold: 15
+        initialDelaySeconds: 15
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      terminationGracePeriodSeconds: ""
+      tolerations: []
+      topologySpreadConstraints: []
+      updateStrategy:
+        type: RollingUpdate
+    serviceAccount:
+      annotations: {}
+      automountServiceAccountToken: false
+      create: true
+      name: ""
+    serviceBindings:
+      enabled: false
+    startdbScripts: {}
+    startdbScriptsConfigMap: ""
+    volumePermissions:
+      enabled: false
+      image:
+        digest: ""
+        pullPolicy: IfNotPresent
+        pullSecrets: []
+        registry: docker.io
+        repository: bitnami/os-shell
+        tag: 12-debian-12-r24
+      resources: {}
+      resourcesPreset: nano
+  
+  

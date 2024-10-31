@@ -35,7 +35,7 @@ actions:
       k8sPermissions:
         rules:
         - rule:
-            group: software.streamsets.ibm.com
+            group: streamsets.cpd.ibm.com
             resource: '*'
             verbs:
             - get
@@ -58,7 +58,7 @@ actions:
       k8sPermissions:
         rules:
         - rule:
-            group: software.streamsets.ibm.com
+            group: streamsets.cpd.ibm.com
             resource: '*'
             verbs:
             - '*'
