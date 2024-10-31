@@ -5,24 +5,24 @@ resources:
     containerImages:
     - image: cpopen/ibm-streamsets-operator
       tag: v5.1.0
-      digest: sha256:58e49e0ce655902fd8b1e6d9389949df05df56a7b33b8277b1d913d264b4ed91
+      digest: sha256:5f5661db47d6388b5c7bdc99d2b1717853f2a94d61d4b804e4ea84418927ad0e
       mediaType: application/vnd.docker.distribution.manifest.list.v2
       registries:
       - host: icr.io
       manifests:
-      - digest: sha256:663e0d296d7a916533181121b0bfcc69fb478cbc14bff063b2bfbb3674837667
+      - digest: sha256:4dad92e2d4612ce010388d9ce41556818aba225d8a03b443e3c5217344bcb15d
         mediaType: application/vnd.docker.distribution.manifest.v2
         platform:
           architecture: amd64
           os: linux
         tag: v5.1.0-amd64
-      - digest: sha256:dc4d779436e8dfbd661a4face0369a3108b6332477e6aa499fbfcdc72904ddbd
+      - digest: sha256:1a95702e67d7edc5c7a31680eb7e7fec694954b44be4f42261a207b228b8db2b
         mediaType: application/vnd.docker.distribution.manifest.v2
         platform:
           architecture: s390x
           os: linux
         tag: v5.1.0-s390x
-      - digest: sha256:b298acd4bbbc495fac1859de41453605eaba3b361b44a60819e0cf7116fdd08a
+      - digest: sha256:3afdf5d66b24818fb913ce1e997eb5476b3905682ec5b1714500538ab2b05ae5
         mediaType: application/vnd.docker.distribution.manifest.v2
         platform:
           architecture: ppc64le
@@ -30,24 +30,24 @@ resources:
         tag: v5.1.0-ppc64le
     - image: cpopen/ibm-streamsets-operator-bundle
       tag: v5.1.0
-      digest: sha256:f5ae75607e107a1dc3ddc4e3d45ee945b23ec7279d7b063c6dce82e0ce3b7188
+      digest: sha256:f73e0f867173e1f6072214dd6344b5e2993f66b95b3bf18a6b34c5df16ef5a9e
       mediaType: application/vnd.docker.distribution.manifest.list.v2
       registries:
       - host: icr.io
       manifests:
-      - digest: sha256:b9a2e6a8057f268b901928c0d537ce7134388981f6e2ffe4e6c977e28e4cdc47
+      - digest: sha256:6de2fb0f9249670121a075e4b66ecb52a0226ef3ba64e31bd0fa2606d9cc8e47
         mediaType: application/vnd.docker.distribution.manifest.v2
         platform:
           architecture: amd64
           os: linux
         tag: v5.1.0-amd64
-      - digest: sha256:f892f1c703f7dabcbb7a1e365ee262c345824f867a9f6cf112f04a5c8edfae1f
+      - digest: sha256:67f069792d254afffb6e14f60a64a9a0c3624d11762d19fdf95f7e6d45caf0b1
         mediaType: application/vnd.docker.distribution.manifest.v2
         platform:
           architecture: s390x
           os: linux
         tag: v5.1.0-s390x
-      - digest: sha256:3224f83821e0ca1c6e043b7eb1d7ccb8737e1117ca4c963d5acb416bdd71d878
+      - digest: sha256:746e0bfbfbdabda556bfbb7a8c2eab61b6ed9f791ab21d926416fa7158a51ac0
         mediaType: application/vnd.docker.distribution.manifest.v2
         platform:
           architecture: ppc64le
@@ -59,24 +59,24 @@ resources:
             mediaType: registry+v1
     - image: cpopen/ibm-streamsets-operator-catalog
       tag: v5.1.0
-      digest: sha256:32311e0483913c79b38a54115880088e2b9ce2ff84e4ed650829fd4189eb7029
+      digest: sha256:515564cb7f059cb166301a43c0c71be5994ad2331f020e3cec17dc4f78de1ba9
       mediaType: application/vnd.docker.distribution.manifest.list.v2
       registries:
       - host: icr.io
       manifests:
-      - digest: sha256:dbe96507f349a465c8b8f97b4b9754c15f24438f77be6a2dfd69f1736b10041a
+      - digest: sha256:564848135315667e7d356d15e4ac01f16c52f09d8ccf8c0f365c46a5a3f4f486
         mediaType: application/vnd.docker.distribution.manifest.v2
         platform:
           architecture: amd64
           os: linux
         tag: v5.1.0-amd64
-      - digest: sha256:6d74b1308d6516dd5e5e3516b0ddb9d7fb95e156a8cc58be1f937b2beafa2c16
+      - digest: sha256:81c6cb601a2b30f7906d4b29e205c75612d8bc360a6c539095f476581fcc9416
         mediaType: application/vnd.docker.distribution.manifest.v2
         platform:
           architecture: s390x
           os: linux
         tag: v5.1.0-s390x
-      - digest: sha256:612a3a6fee37a1759f590774a1ea69bd7a155b2473c49ab276a45b84cf1aa1fc
+      - digest: sha256:0a97f4349d843877bc956409998ededc7771e13a19bc9cddf0bb73a920c56d95
         mediaType: application/vnd.docker.distribution.manifest.v2
         platform:
           architecture: ppc64le

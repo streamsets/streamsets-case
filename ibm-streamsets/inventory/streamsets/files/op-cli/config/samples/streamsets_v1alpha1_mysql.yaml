@@ -6,7 +6,7 @@ spec:
   # Default values copied from <project_dir>/helm-charts/mysql/values.yaml
   mysql-deploy:
     application:
-      containerRegistry: cp.stg.icr.io/cp/cpd/ibm-streamsets-
+      containerRegistry: cp.icr.io/cp/cpd/ibm-streamsets-
       dpmcliVersion: software-da90442114a1a46b25751d498687b0969cf5dd45
       imageSuffix: -amd64
     architecture: standalone

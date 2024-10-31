@@ -8,7 +8,7 @@ spec:
     appName: astersecurity
     application:
       args: /apps/bin/streamsets security run
-      containerRegistry: cp.stg.icr.io/cp/cpd/ibm-streamsets-
+      containerRegistry: cp.icr.io/cp/cpd/ibm-streamsets-
       dbUpgradeArgs: /apps/bin/streamsets security prod-update-schema --confirm prod-update-schema
         && /apps/bin/streamsets security seed-data --confirm seed-data
       dpmcliVersion: software-da90442114a1a46b25751d498687b0969cf5dd45
@@ -30,7 +30,6 @@ spec:
         -XX:ReservedCodeCacheSize=240M -Xss1M -Xmx1024M -XX:+CrashOnOutOfMemoryError
         -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/diagnostics -XX:ErrorFile=/diagnostics/app.err
       APP_LOG: /var/log/app.log
-      URL_PREFIX: "cpd-zen.apps.rosa.rosa.sl9v.p3.openshiftapps.com"
       DD_ENV: '{{ .Release.Namespace }}'
       DD_SERVICE: '{{ .Values.appName }}'
       DD_VERSION: '{{ .Values.application.imageTag }}'

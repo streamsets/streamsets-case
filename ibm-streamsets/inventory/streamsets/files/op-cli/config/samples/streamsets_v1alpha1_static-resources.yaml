@@ -7,7 +7,7 @@ spec:
   static-content:
     appName: static-content
     application:
-      containerRegistry: cp.stg.icr.io/cp/cpd/ibm-streamsets-
+      containerRegistry: cp.icr.io/cp/cpd/ibm-streamsets-
       dpmcliVersion: software-da90442114a1a46b25751d498687b0969cf5dd45
       imageName: cpd-nginx
       imageSuffix: -amd64

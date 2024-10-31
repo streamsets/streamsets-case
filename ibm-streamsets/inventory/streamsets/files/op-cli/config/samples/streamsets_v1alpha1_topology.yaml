@@ -8,7 +8,7 @@ spec:
     appName: topology
     application:
       args: ${DPM_DIST}/bin/streamsets dpm
-      containerRegistry: cp.stg.icr.io/cp/cpd/ibm-streamsets-
+      containerRegistry: cp.icr.io/cp/cpd/ibm-streamsets-
       dbUpgradeArgs: ${DPM_DIST}/bin/streamsets dpmcli {{ .Values.appName }} buildSchema
         -a --debug
       dpmcliVersion: software-da90442114a1a46b25751d498687b0969cf5dd45

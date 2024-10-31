@@ -8,7 +8,7 @@ spec:
     appName: banner
     application:
       args: /apps/bin/streamsets banner run
-      containerRegistry: cp.stg.icr.io/cp/cpd/ibm-streamsets-
+      containerRegistry: cp.icr.io/cp/cpd/ibm-streamsets-
       dbUpgradeArgs: /apps/bin/streamsets banner prod-update-schema --confirm prod-update-schema
         && /apps/bin/streamsets banner seed-data --confirm seed-data
       dpmcliVersion: software-da90442114a1a46b25751d498687b0969cf5dd45

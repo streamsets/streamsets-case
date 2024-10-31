@@ -7,7 +7,7 @@ spec:
   aster-security-ui-deploy:
     appName: aster-security-ui-v1
     application:
-      containerRegistry: cp.stg.icr.io/cp/cpd/ibm-streamsets-
+      containerRegistry: cp.icr.io/cp/cpd/ibm-streamsets-
       dpmcliVersion: software-da90442114a1a46b25751d498687b0969cf5dd45
       imageName: aster-security-ui
       imageSuffix: -amd64
