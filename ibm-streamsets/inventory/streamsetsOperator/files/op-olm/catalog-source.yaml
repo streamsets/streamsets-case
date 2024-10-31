@@ -4,7 +4,7 @@ metadata:
   name: ibm-cpd-streamsets-operator-catalog
 spec:
   displayName: IBM Streamsets
-  image: cp.stg.icr.io/cp/ibm-streamsets-operator-catalog@sha256:dbe96507f349a465c8b8f97b4b9754c15f24438f77be6a2dfd69f1736b10041a
+  image: cp.stg.icr.io/cp/ibm-streamsets-operator-catalog@sha256:5ed6d60682803af7ee73e58d255bddff6fe403773a069588a4ee6607d23d5b2e
   publisher: IBM Streamsets
   grpcPodConfig:
     securityContextConfig: legacy

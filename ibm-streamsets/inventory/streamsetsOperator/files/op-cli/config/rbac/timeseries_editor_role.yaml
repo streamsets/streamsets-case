@@ -8,7 +8,7 @@ metadata:
   name: timeseries-editor-role
 rules:
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - timeseries
   verbs:
@@ -20,7 +20,7 @@ rules:
   - update
   - watch
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - timeseries/status
   verbs:

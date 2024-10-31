@@ -8,7 +8,7 @@ metadata:
   name: security-viewer-role
 rules:
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - securities
   verbs:
@@ -16,7 +16,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - securities/status
   verbs:

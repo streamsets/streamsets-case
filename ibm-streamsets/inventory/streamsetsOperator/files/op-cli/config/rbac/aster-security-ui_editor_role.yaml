@@ -8,7 +8,7 @@ metadata:
   name: aster-security-ui-editor-role
 rules:
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - aster-security-uis
   verbs:
@@ -20,7 +20,7 @@ rules:
   - update
   - watch
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - aster-security-uis/status
   verbs:

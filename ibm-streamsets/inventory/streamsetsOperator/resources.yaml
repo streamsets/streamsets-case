@@ -10,7 +10,7 @@ resources:
       registries:
       - host: icr.io
       manifests:
-      - digest: sha256:f3f120782c0fd37fdec9b93d58e1dfdacdc2d684b3c8a516972cd30f8931b546
+      - digest: sha256:663e0d296d7a916533181121b0bfcc69fb478cbc14bff063b2bfbb3674837667
         mediaType: application/vnd.docker.distribution.manifest.v2
         platform:
           architecture: amd64
@@ -202,44 +202,50 @@ resources:
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
       ref: op-cli/config/rbac/tunneling_viewer_role.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_sch-istios.yaml
+      ref: op-cli/config/rbac/static-resources_editor_role.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_aster-securities.yaml
+      ref: op-cli/config/rbac/static-resources_viewer_role.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_aster-security-uis.yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_sch-istios.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_banners.yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_aster-securities.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_connections.yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_aster-security-uis.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_docs.yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_banners.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_jobrunners.yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_connections.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_messagings.yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_docs.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_meterings.yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_jobrunners.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_misc-resources.yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_messagings.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_mysqls.yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_meterings.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_notifications.yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_misc-resources.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_pipelinestores.yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_mysqls.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_provisionings.yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_notifications.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_schedulers.yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_pipelinestores.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_securities.yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_provisionings.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_sequencings.yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_schedulers.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_slas.yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_securities.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_timeseries.yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_sequencings.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_topologies.yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_slas.yaml
     - mediaType: application/vnd.case.resource.k8s.v1+yaml
-      ref: op-cli/config/crd/bases/software.streamsets.ibm.com_tunnelings.yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_timeseries.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_topologies.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_static-resources.yaml
+    - mediaType: application/vnd.case.resource.k8s.v1+yaml
+      ref: op-cli/config/crd/bases/streamsets.cpd.ibm.com_tunnelings.yaml

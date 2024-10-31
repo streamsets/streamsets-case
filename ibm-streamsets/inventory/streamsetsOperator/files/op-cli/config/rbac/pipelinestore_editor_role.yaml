@@ -8,7 +8,7 @@ metadata:
   name: pipelinestore-editor-role
 rules:
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - pipelinestores
   verbs:
@@ -20,7 +20,7 @@ rules:
   - update
   - watch
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - pipelinestores/status
   verbs:

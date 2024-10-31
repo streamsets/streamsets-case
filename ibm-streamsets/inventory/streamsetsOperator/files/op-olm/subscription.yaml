@@ -3,7 +3,7 @@ kind: Subscription
 metadata:
   name: ibm-cpd-streamsets-operator-subscription
 spec:
-  channel: preview
+  channel: v5.1.0
   installPlanApproval: Automatic
   name: ibm-streamsets-operator
   source: ibm-cpd-streamsets-operator-catalog

@@ -98,7 +98,6 @@ actions:
         description: "Install the Streamsets operator"
         case.launcher.type: "script"
         case.cli.alias: "install-operator"
-        case.launcher.isdefault: true
       roles:
         - clusterAdmin
       requires:

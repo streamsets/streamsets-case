@@ -32,7 +32,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Aster-security-ui
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - aster-security-uis
   - aster-security-uis/status
@@ -88,7 +88,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Aster-security
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - aster-securities
   - aster-securities/status
@@ -144,7 +144,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Banner
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - banners
   - banners/status
@@ -200,7 +200,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Base-istio
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - base-istios
   - base-istios/status
@@ -250,7 +250,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Connection
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - connections
   - connections/status
@@ -306,7 +306,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Docs
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - docs
   - docs/status
@@ -361,7 +361,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Jobrunner
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - jobrunners
   - jobrunners/status
@@ -417,7 +417,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Messaging
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - messagings
   - messagings/status
@@ -472,7 +472,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Metering
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - meterings
   - meterings/status
@@ -527,7 +527,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Misc-resources
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - misc-resources
   - misc-resources/status
@@ -545,7 +545,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Mysql
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - mysqls
   - mysqls/status
@@ -569,7 +569,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Notification
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - notifications
   - notifications/status
@@ -624,7 +624,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Pipelinestore
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - pipelinestores
   - pipelinestores/status
@@ -679,7 +679,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Provisioning
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - provisionings
   - provisionings/status
@@ -737,7 +737,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Sch-istio
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - sch-istios
   - sch-istios/status
@@ -795,7 +795,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Scheduler
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - schedulers
   - schedulers/status
@@ -850,7 +850,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Security
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - securities
   - securities/status
@@ -909,7 +909,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Sequencing
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - sequencings
   - sequencings/status
@@ -964,7 +964,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Sla
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - slas
   - slas/status
@@ -1019,7 +1019,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Timeseries
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - timeseries
   - timeseries/status
@@ -1074,7 +1074,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Topology
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - topologies
   - topologies/status
@@ -1129,7 +1129,7 @@ rules:
 ## Rules for software.streamsets.ibm.com/v1alpha1, Kind: Tunneling
 ##
 - apiGroups:
-  - software.streamsets.ibm.com
+  - streamsets.cpd.ibm.com
   resources:
   - tunnelings
   - tunnelings/status

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    control-plane: controller-manager
+    control-plane: ibm-streamsets-operator-controller-manager
     app.kubernetes.io/name: ibm-streamsets-operator
     app.kubernetes.io/managed-by: kustomize
   name: controller-manager-metrics-service
@@ -13,4 +13,4 @@ spec:
     protocol: TCP
     targetPort: https
   selector:
-    control-plane: controller-manager
+    control-plane: ibm-streamsets-operator-controller-manager
